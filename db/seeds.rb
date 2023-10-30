@@ -6,18 +6,22 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-movies = [{:title => 'Aladdin', :rating => 'G', :release_date => '25-Nov-1992'},
-    	  {:title => 'The Terminator', :rating => 'R', :release_date => '26-Oct-1984'},
-    	  {:title => 'When Harry Met Sally', :rating => 'R', :release_date => '21-Jul-1989'},
-      	  {:title => 'The Help', :rating => 'PG-13', :release_date => '10-Aug-2011'},
-      	  {:title => 'Chocolat', :rating => 'PG-13', :release_date => '5-Jan-2001'},
-      	  {:title => 'Amelie', :rating => 'R', :release_date => '25-Apr-2001'},
-      	  {:title => '2001: A Space Odyssey', :rating => 'G', :release_date => '6-Apr-1968'},
-      	  {:title => 'The Incredibles', :rating => 'PG', :release_date => '5-Nov-2004'},
-      	  {:title => 'Raiders of the Lost Ark', :rating => 'PG', :release_date => '12-Jun-1981'},
-      	  {:title => 'Chicken Run', :rating => 'G', :release_date => '21-Jun-2000'},
+chefs = [{:name => 'Akshay', :food_constraint => 'vegetarian', :tags => ['indian', 'gluten-free'], :schedule => ["Paneer Butter Masala", "Egg fry"], :max_people => [3, 4], :description => "One of the authors of this SaaS app"},
+		{:name => 'Vasavi', :food_constraint => 'vegetarian', :tags => ['indian', 'jain'], :schedule => ["Paneer Chilli", "French Toast"], :max_people => [3, 4], :description => "One of the authors of this SaaS app"},
+		{:name => 'Maya', :food_constraint => 'non-vegetarian', :tags => ['chinese', 'gluten-free'], :schedule => ["Noodles", "Manchurian"], :max_people => [3, 4], :description => "One of the authors of this SaaS app"},
+		{:name => 'Tanisha', :food_constraint => 'non-vegetarian', :tags => ['vietnamese', 'gluten-free'], :schedule => ["Pho", "Pho"], :max_people => [3, 4], :description => "One of the authors of this SaaS app"},
   	 ]
 
-movies.each do |movie|
-  Movie.create!(movie)
+customers = [{:name => 'Omkar', :food_constraint => 'vegetarian', :tags => ['indian', 'jain'], :chefs => ["Akshay", ""], :needs => [true, false], :description => "One of the authors of this SaaS app"},
+		{:name => 'Akshat', :food_constraint => 'vegetarian', :tags => ['indian', 'jain'], :chefs => ["", "Vasavi"], :needs => [true, true], :description => "One of the authors of this SaaS app"},
+		{:name => 'Abhinav', :food_constraint => 'vegetarian', :tags => ['indian', 'jain'], :chefs => ["Tanisha", "Maya"], :needs => [true, true], :description => "One of the authors of this SaaS app"},
+	]
+
+	
+chefs.each do |chef|
+  Chef.create!(chef)
 end
+
+customers.each do |customer|
+	Customer.create!(customer)
+  end
