@@ -7,6 +7,8 @@ class CreateChefs < ActiveRecord::Migration
       t.string :schedule, array: true, default: []
       t.integer :max_people, array: true, default: []
       t.text :description
+      t.string :address
+      t.integer :address_coordinates, array: true, default: []
       t.string :username
       t.string :password
       # Add fields that let Rails automatically keep track

@@ -6,10 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-chefs = [{:name => 'Akshay', :username => "aksh123", :password => "password123",:food_constraint => 'vegetarian', :tags => ['indian', 'gluten-free'], :schedule => ["Paneer Butter Masala", "Egg fry"], :max_people => [3, 4], :description => "One of the authors of this SaaS app"},
-		{:name => 'Vasavi', :username => "vasavi123", :password => "password123", :food_constraint => 'vegetarian', :tags => ['indian', 'jain'], :schedule => ["Paneer Chilli", "French Toast"], :max_people => [3, 4], :description => "One of the authors of this SaaS app"},
-		{:name => 'Maya', :username => "maya123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => ['chinese', 'gluten-free'], :schedule => ["Noodles", "Manchurian"], :max_people => [3, 4], :description => "One of the authors of this SaaS app"},
-		{:name => 'Tanisha', :username => "tanisha123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => ['vietnamese', 'gluten-free'], :schedule => ["Pho", "Pho"], :max_people => [3, 4], :description => "One of the authors of this SaaS app"},
+chefs = [{:name => 'Akshay', :username => "aksh123", :password => "password123",:food_constraint => 'vegetarian', :tags => ['indian', 'gluten-free'], :schedule => ["Paneer Butter Masala", "Egg fry"], :max_people => [3, 4], :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => [30, 40]},
+		{:name => 'Vasavi', :username => "vasavi123", :password => "password123", :food_constraint => 'vegetarian', :tags => ['indian', 'jain'], :schedule => ["Paneer Chilli", "French Toast"], :max_people => [3, 4], :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => [30, 40]},
+		{:name => 'Maya', :username => "maya123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => ['chinese', 'gluten-free'], :schedule => ["Noodles", "Manchurian"], :max_people => [3, 4], :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => [30, 40]},
+		{:name => 'Tanisha', :username => "tanisha123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => ['vietnamese', 'gluten-free'], :schedule => ["Pho", "Pho"], :max_people => [3, 4], :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => [30, 40]},
   	 ]
 
 customers = [{:name => 'Omkar', :username => "omkar123", :password => "password123", :food_constraint => 'vegetarian', :tags => ['indian', 'jain'], :chefs => ["Akshay", ""], :needs => [true, false], :description => "One of the authors of this SaaS app"},

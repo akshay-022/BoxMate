@@ -1,5 +1,4 @@
 Rottenpotatoes::Application.routes.draw do
-  resources :movies
   resources :chefs
   resources :customers
 
@@ -7,5 +6,5 @@ Rottenpotatoes::Application.routes.draw do
   root :to => redirect('/signIn')
   get '/signIn' => 'commons#signIn', as: 'commons'
   post '/signIn/signin_intermediate' => 'commons#signin_intermediate', as: 'signin'
-
+  get '/customer' => 'customers#customer_homepage'
 end

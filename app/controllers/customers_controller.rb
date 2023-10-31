@@ -10,6 +10,11 @@ class CustomersController < ApplicationController
     @movies = Movie.all
   end
 
+  def customer_homepage
+    @chefs = Chef.all
+    @all_cuisines = Chef.all_cuisines
+  end
+
   def new
     # default: render 'new' template
   end
