@@ -70,29 +70,29 @@ span.psw {
 
 <h2>Login Form</h2>
 
-<form action="/action_page.php" method="post">
+<%= form_tag signin_path, id: 'user_login' do %>
   <div class="imgcontainer">
-    <img src="img_lunchbox.png" alt="Avatar" class="avatar">
+    <%= image_tag "img_lunchbox.png" %>
   </div>
 
   <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <%= label :common, :username, 'Username', :class => 'col-form-label' %>
+    <%= text_field :common, :username, :class => 'form-control' %>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-        
-    <button type="submit">Login</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-  </div>
+    <%= label :common, :password, 'Password', :class => 'col-form-label' %>
+    <%= text_field :common, :password, :class => 'form-control' %>
+  </div>     
 
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
-  </div>
-</form>
+    
+
+  
+  <%= submit_tag 'Login', id: 'login_submit', class: 'btn btn-primary' %>
+    <div class="form-check  form-check-inline">
+    <%= label_tag :remember_me ,"Remember password", class: 'form-check-label' %>
+    <%= check_box_tag :remember_me, "1",  true, class: 'form-check-input' %>
+    </div>
+    
+  <% end %>
 
 </body>
 </html>

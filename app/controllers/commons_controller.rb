@@ -1,45 +1,37 @@
+
+
 class CommonsController < ApplicationController
 
   def signIn
     @commons = Common.all
   end
 
-  def show
-    id = params[:id] # retrieve movie ID from URI route
-    @movie = Movie.find(id) # look up movie by unique ID
-    # will render app/views/movies/show.<extension> by default
-  end
-
-  def index
-    @movies = Movie.all
-  end
-
-  def new
-    # default: render 'new' template
-  end
-
-  def create
-    @movie = Movie.create!(movie_params)
-    flash[:notice] = "#{@movie.title} was successfully created."
-    redirect_to movies_path
-  end
-
-  def edit
-    @movie = Movie.find params[:id]
-  end
-
-  def update
-    @movie = Movie.find params[:id]
-    @movie.update_attributes!(movie_params)
-    flash[:notice] = "#{@movie.title} was successfully updated."
-    redirect_to movie_path(@movie)
-  end
-
-  def destroy
-    @movie = Movie.find(params[:id])
-    @movie.destroy
-    flash[:notice] = "Movie '#{@movie.title}' deleted."
-    redirect_to movies_path
+  def signin_intermediate
+    #flash[:notice]= "Movie '#{params[:common][:username]}' deleted."
+    user_chef = Chef.find_by(username: params[:common][:username])
+    user_customer = Customer.find_by(username: params[:common][:username])
+    #user_customer = Customer.find_by(username: "omkar123")
+    #flash[:notice]= "Movie '#{user_customer}' deleted."
+    if user_chef.blank?
+      if user_customer.blank?
+        flash[:notice]= "Invalid username"
+        redirect_to commons_path
+      else
+        if user_customer.password == params[:common][:password]
+          redirect_to customers_path(id: user_customer.id)
+        else
+          flash[:notice]= "Invalid password"
+          redirect_to commons_path
+        end
+      end
+    else
+      if user_chef.password == params[:common][:password]
+        redirect_to chefs_path(id: user_chef.id)
+      else
+        flash[:notice]= "Invalid password"
+        redirect_to commons_path
+      end
+    end
   end
 
   private
