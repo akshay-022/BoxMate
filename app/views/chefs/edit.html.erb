@@ -1,12 +1,11 @@
-<h2>Edit Existing Movie</h2>
-<%= form_tag movie_path(@movie), :method => :put do %>
-  <%= label :movie, :title, 'Title', :class => 'col-form-label' %>
-  <%= text_field :movie, 'title', :class => 'form-control' %>
-  <%= label :movie, :rating, 'Rating', :class => 'col-form-label'  %>
-  <%= select :movie, :rating, ['G','PG','PG-13','R','NC-17'], {}, {:class => 'form-control col-1'} %>
-  <%= label :movie, :release_date, 'Released On', :class => 'col-form-label'  %>
-  <%= date_select :movie, :release_date, {}, :class => 'form-control col-2 d-inline' %>
+<h2>Edit your details chef!</h2>
+<%= form_tag update_chef_path(@chef), :method => :put do %>
+  <%= label :new_entry, :day, 'Enter which day : ', :class => 'col-form-label' %>
+  <%= text_field :new_entry, :day, :class => 'form-control' %>
+  <%= label :new_entry, :schedule, 'Enter your dish : ', :class => 'col-form-label' %>
+  <%= text_field :new_entry, :schedule, :class => 'form-control' %>
+  <%= label :new_entry, :max_customers, 'Enter the maximum people you can cook for : ', :class => 'col-form-label' %>
+  <%= text_field :new_entry, :max_customers, :class => 'form-control' %>
   <br/>
-  <%= submit_tag 'Update Movie Info', :class => 'btn btn-primary' %>
-  <%= link_to 'Cancel', movies_path, :class => 'btn btn-secondary' %>
+  <%= submit_tag 'Update Chef Info', :class => 'btn btn-primary' %>
 <% end %>

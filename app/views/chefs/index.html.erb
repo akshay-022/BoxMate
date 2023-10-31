@@ -1,19 +1,19 @@
 <!--  This file is app/views/movies/index.html.erb -->
-<h2>All Movies</h2>
+<h2>This is what your week looks like!!</h2>
 
 <%#  Part 2: Start here... %>
 
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-      <th>Movie Title</th>
-      <th>Rating</th>
-      <th>Release Date</th>
-      <th>More Info</th>
+      <th>Day</th>
+      <th>Meal</th>
+      <th>Max Customers</th>
+      <th>Customers</th>
     </tr>
   </thead>
   <tbody>
-    <% @movies.each do |movie| %>
+    <% @chefs.each do |movie| %>
       <tr>
         <td>
           <%= movie.title %>
@@ -24,11 +24,8 @@
         <td>
           <%= movie.release_date %>
         </td>
-        <td>
-          <%= link_to "More about #{movie.title}", movie_path(movie) %>
-        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Add new movie', new_movie_path, :class => 'btn btn-primary' %>
+<%= link_to 'Change your schedule', edit_chef_path, :class => 'btn btn-primary' %>

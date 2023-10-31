@@ -8,3 +8,9 @@ rottenpotatoes/lib/tasks/
 rottenpotatoes/log/
 rottenpotatoes/tmp/
 rottenpotatoes/vendor/bundle
+
+
+*.cache
+*.sqlite3
+schema.rb
+*.log

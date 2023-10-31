@@ -18,7 +18,7 @@ class CommonsController < ApplicationController
         redirect_to commons_path
       else
         if user_customer.password == params[:common][:password]
-          redirect_to customers_path(id: user_customer.id)
+          redirect_to customer_path(user_customer)
         else
           flash[:notice]= "Invalid password"
           redirect_to commons_path
@@ -26,7 +26,7 @@ class CommonsController < ApplicationController
       end
     else
       if user_chef.password == params[:common][:password]
-        redirect_to chefs_path(id: user_chef.id)
+        redirect_to (chef_path(user_chef))
       else
         flash[:notice]= "Invalid password"
         redirect_to commons_path
