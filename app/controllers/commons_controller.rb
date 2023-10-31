@@ -1,4 +1,8 @@
-class MoviesController < ApplicationController
+class CommonsController < ApplicationController
+
+  def signIn
+    @commons = Common.all
+  end
 
   def show
     id = params[:id] # retrieve movie ID from URI route
