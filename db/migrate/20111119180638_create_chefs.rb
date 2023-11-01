@@ -3,14 +3,14 @@ class CreateChefs < ActiveRecord::Migration
     create_table :chefs do |t|
       t.string :name
       t.string :food_constraint #vegetarian/non-vegetarian/vegan/halal/kosher/eggetarian/jain
-      t.string :tags, array: true, default: []
-      t.string :schedule, array: true, default: []
-      t.string :days, array: true, default: []
-      t.integer :max_customers, array: true, default: []
-      t.integer :num_customers, array: true, default: []
+      t.string :tags
+      t.string :schedule
+      t.string :days
+      t.string :max_customers
+      t.string :num_customers
       t.text :description
       t.string :address
-      t.integer :address_coordinates, array: true, default: []
+      t.string :address_coordinates
       t.string :username
       t.string :password
       # Add fields that let Rails automatically keep track

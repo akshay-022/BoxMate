@@ -3,9 +3,9 @@ class CreateCustomers < ActiveRecord::Migration
     create_table :customers do |t|
       t.string :name
       t.string :food_constraint #vegetarian/non-vegetarian/vegan/halal/kosher/eggetarian/jain
-      t.string :tags, array: true, default: []
-      t.string :chefs, array: true, default: []
-      t.boolean :needs, array: true, default: [] #true if services needed on a specific day
+      t.string :tags
+      t.string :chefs
+      t.string :needs #true if services needed on a specific day
       t.text :description
       t.string :username
       t.string :password

@@ -13,19 +13,19 @@
     </tr>
   </thead>
   <tbody>
-    <% for a in 1..@chef.schedule.length() do%>
+    <% for a in 1..@schedule.length() do%>
       <tr>
         <td>
-          <%= @chef.day[a-1] %>
+          <%= @days[a-1] %>
         </td>
         <td>
-          <%= @chef.schedule[a-1] %>
+          <%= @schedule[a-1] %>
         </td>
         <td>
-          <%= @chef.max_customers[a-1] %>
+          <%= @max_customers[a-1] %>
         </td>
         <td>
-          <%= @chef.num_customers[a-1] %>
+          <%= @num_customers[a-1] %>
         </td>
       </tr>
     <% end %>

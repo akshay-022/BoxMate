@@ -7,4 +7,5 @@ Rottenpotatoes::Application.routes.draw do
   get '/signIn' => 'commons#signIn', as: 'commons'
   post '/signIn/signin_intermediate' => 'commons#signin_intermediate', as: 'signin'
   get '/customer' => 'customers#customer_homepage'
+  put '/chefs/:id/update'=> "chefs#update", as: 'update_chef'
 end
