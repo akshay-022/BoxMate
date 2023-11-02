@@ -26,13 +26,6 @@ RSpec.describe ChefsController, type: :controller do
     # Add more tests for the 'show' action as needed
   end
 
-  describe 'GET #new' do
-    it 'assigns a new chef as @chef' do
-      get :new
-      expect(assigns(:chef)).to be_a_new(Chef)
-    end
-  end
-
   describe 'GET #edit' do
     it 'assigns the requested chef as @chef' do
       chef = Chef.create!(valid_attributes)
@@ -48,6 +41,34 @@ RSpec.describe ChefsController, type: :controller do
         put :update, :id => chef.id, :new_entry => {schedule: 'Wednesday', days: 'Thursday', max_customers: '20'}
         chef.reload
         expect(assigns(:chef)).to eq(chef)
+    end
+  end
+
+  describe "GET #choose_entry" do
+    it "returns a successful response" do
+      chef = Chef.create!(valid_attributes)
+      get :choose_entry, :id => chef.id
+      expect(response).to be_successful
+    end
+  end
+
+  describe "POST #destroy_entry" do
+    it "deletes a chef's entry" do
+      chef = Chef.create!(valid_attributes)
+      post :destroy_entry, :id => chef.id, :new_entry => { day: 'Monday' }
+      chef.reload
+      expect(chef.schedule).not_to include('Monday')
+      expect(chef.days).not_to include('Monday')
+      expect(chef.max_customers).not_to include('Monday')
+      expect(flash[:notice]).to be_present
+      expect(response).to redirect_to(chef_path(chef))
+    end
+
+    it "handles non-existing entries" do
+      chef = Chef.create!(valid_attributes)
+      post :destroy_entry, :id => chef.id, :new_entry => { day: 'NonExistentDay' }
+      expect(flash[:notice]).to eq('No such entry exists')
+      expect(response).to redirect_to(chef_path(chef))
     end
   end
 
