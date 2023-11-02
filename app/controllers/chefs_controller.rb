@@ -12,11 +12,6 @@ class ChefsController < ApplicationController
     #will render app/views/chefs/show.<extension> by default
   end
 
-  def new
-    # default: render 'new' template
-    @chef = Chef.new
-  end
-
   def edit
     @chef = Chef.find params[:id]
     @schedule = @chef.schedule.split(",")
@@ -80,12 +75,5 @@ class ChefsController < ApplicationController
       flash[:notice] = "Your entry was successfully deleted!"
       redirect_to chef_path(@chef)
     end
-  end
-
-  private
-  # Making "internal" methods private is not required, but is a common practice.
-  # This helps make clear which methods respond to requests, and which ones do not.
-  def movie_params
-    params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
 end
