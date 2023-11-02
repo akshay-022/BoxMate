@@ -51,6 +51,7 @@ Steps to run the Rspectests:
 - bundle exec rspec
 
 Steps to run Cucumber Features:
+- bundle exec rake db:drop RAILS_ENV=test
 - bundle exec rake db:migrate RAILS_ENV=test
 - bundle exec rake db:seed RAILS_ENV=test
 - bundle exec rake cucumber
