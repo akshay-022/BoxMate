@@ -15,7 +15,11 @@ RSpec.describe CommonsController, type: :controller do
 
   describe 'POST #signin_intermediate' do
     context 'when the user is a Chef' do
-      chef = Chef.create!({username: 'testchef', password: 'password123'})
+      if Chef.find_by(username: 'testchef').blank?
+        chef = Chef.create!({username: 'testchef', password: 'password123'})
+      else
+        chef = Chef.find_by(username: 'testchef')
+      end
 
       it 'redirects to the chef profile page on successful login' do
         post :signin_intermediate, :common => { username: chef.username, password: chef.password }
@@ -36,7 +40,11 @@ RSpec.describe CommonsController, type: :controller do
     end
 
     context 'when the user is a Customer' do
-      customer = Customer.create!({ username: 'testcustomer', password: 'password123'})
+      if Customer.find_by(username: 'testcustomer').blank?
+        customer = Customer.create!({username: 'testcustomer', password: 'password123'})
+      else
+        customer = Customer.find_by(username: 'testcustomer')
+      end
 
       it 'redirects to the customer profile page on successful login' do
         post :signin_intermediate, :common => { username: customer.username, password: customer.password }
