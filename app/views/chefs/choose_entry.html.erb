@@ -1,7 +1,4 @@
-<!--  This file is app/views/movies/index.html.erb -->
-<h2>This is what your week looks like!!</h2>
-
-<%#  Part 2: Start here... %>
+<h2>Edit your details chef!</h2>
 
 <table class="table table-striped col-md-12" id="movies">
   <thead>
@@ -31,6 +28,11 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Change your schedule', edit_chef_path(@chef), :class => 'btn btn-primary col-2' %>
-<%= link_to 'Remove an entry', choose_entry_path(@chef), :class => 'btn btn-primary col-2' %>
-<!-- <%= link_to 'Remove an entry', destroy_entry_path(@chef), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>  -->
+
+
+<%= form_tag destroy_entry_path(@chef), :method => :put do %>
+  <%= label :new_entry, :day, 'Enter which day : ', :class => 'col-form-label' %>
+  <%= text_field :new_entry, :day, :class => 'form-control' %>
+  <br/>
+  <%= submit_tag 'Destroy Chef Entry', 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2' %>
+<% end %>

@@ -52,11 +52,39 @@ class ChefsController < ApplicationController
     redirect_to chef_path(@chef)
   end
 
-  def destroy
-    @movie = Movie.find(params[:id])
-    @movie.destroy
-    flash[:notice] = "Movie '#{@movie.title}' deleted."
-    redirect_to movies_path
+  def choose_entry
+    @chef = Chef.find params[:id]
+    @schedule = @chef.schedule.split(",")
+    @days = @chef.days.split(",")
+    @address_coordinates = @chef.address_coordinates.split(",")
+    @max_customers = @chef.max_customers.split(",")
+    @num_customers = @chef.num_customers.split(",")
+  end
+
+  def destroy_entry
+    @chef = Chef.find params[:id]
+    @schedule = @chef.schedule.split(",")
+    @days = @chef.days.split(",")
+    @address_coordinates = @chef.address_coordinates.split(",")
+    @max_customers = @chef.max_customers.split(",")
+    @num_customers = @chef.num_customers.split(",")
+    our_index = @days.find_index(params[:new_entry][:day])
+    if our_index.blank?
+      flash[:notice] = "No such entry exists"
+      redirect_to chef_path(@chef)
+    else
+      @schedule.delete_at(our_index)
+      @days.delete_at(our_index)
+      @max_customers.delete_at(our_index)
+      @num_customers.delete_at(our_index)
+      @chef.schedule = @schedule*","
+      @chef.days = @days*","
+      @chef.max_customers = @max_customers*","
+      @chef.num_customers = @num_customers*","
+      @chef.save
+      flash[:notice] = "Your entry was successfully deleted!"
+      redirect_to chef_path(@chef)
+    end
   end
 
   private
