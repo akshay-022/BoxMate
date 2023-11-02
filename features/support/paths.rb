@@ -24,6 +24,15 @@ module NavigationHelpers
 
     when /^(.*)'s delete page$/i
       choose_entry_path(Chef.find_by(name: $1))
+
+    when /^(.*)'s customer page$/i
+      customer_path(Customer.find_by(name: $1))
+
+    when /^(.*)'s delete customer page$/i
+      choose_customer_entry_path(Customer.find_by(name: $1))
+
+    when /^(.*)'s create customer page$/i
+      edit_customer_path(Customer.find_by(name: $1))
       
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
