@@ -5,17 +5,22 @@ class CustomersController < ApplicationController
     @customer = Customer.find(id) # look up customer by unique ID
     @days = @customer.days.split(",")
     @chefs = @customer.chefs.split(",")
+    puts "Hello"
+    puts "#{@days} was successfully created."
     @meals = Customer.find_dishes(@days, @chefs)
-    #flash[:notice] = "#{@customer.chefs} was successfully created."
+
+    
     #will render app/views/customers/show.<extension> by default
   end
 
   def edit
-    #id = params[:id] # retrieve customer ID from URI route
-    #@customer = customer.find(id) # look up movie by unique ID
-    #@days = @customer.days.split(",")
-    #@chefs = @customer.chefs.split(",")
-    #@meals = Customer.find_dishes(@days, @chefs)
+    id = params[:id] # retrieve customer ID from URI route
+    @customer = Customer.find(id) # look up movie by unique ID
+    @days = @customer.days.split(",")
+    @chefs = @customer.chefs.split(",")
+    @chefs_table = Chef.get_chefs_meals
+    @meals = Customer.find_dishes(@days, @chefs)
+    @all_cuisines = Customer.all_cuisines
   end
 
   def update
@@ -23,21 +28,30 @@ class CustomersController < ApplicationController
     @customer = Customer.find params[:id]
     @chefs = @customer.chefs.split(",")
     @days = @customer.days.split(",")
-    @chefs = @chefs.append(params[:new_entry][:chefs])
-    @days = @days.append(params[:new_entry][:day])
-    @customer.chefs = @chefs*","
-    @customer.days = @days*","
-    @customer.save
-    flash[:notice] = "Your choice was successfully updated!"
+    if Chef.find_by(name: params[:new_entry][:chef]).blank?
+      flash[:notice] = "This entry does not exist!"
+    else
+      #if Chef.find_by(name: params[:new_entry][:chef]).days.split(",").include(params[:new_entry][:day])?
+      @chefs = @chefs.append(params[:new_entry][:chef])
+      @days = @days.append(params[:new_entry][:day])
+      #Chef.update_db
+      @customer.chefs = @chefs*","
+      @customer.days = @days*","
+      @customer.save
+      flash[:notice] = "Your choice was successfully updated!"
+      #else
+      #  flash[:notice] = "This entry does not exist!"
+      #end
+    end
     redirect_to customer_path(@customer)
   end
 
   def choose_entry
-    #id = params[:id] # retrieve customer ID from URI route
-    #@customer = customer.find(id) # look up movie by unique ID
-    #@days = @customer.days.split(",")
-    #@chefs = @customer.chefs.split(",")
-    #@meals = Customer.find_dishes(@days, @chefs)
+    id = params[:id] # retrieve customer ID from URI route
+    @customer = Customer.find(id) # look up movie by unique ID
+    @days = @customer.days.split(",")
+    @chefs = @customer.chefs.split(",")
+    @meals = Customer.find_dishes(@days, @chefs)
   end
 
   def destroy_entry
