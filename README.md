@@ -36,5 +36,8 @@ Now, login again as aksh123, and observe that the number of customers on the day
 
 Play around a bit more if you want, maybe try some other chefs and customers and see how it updates!
 
+Note : "/" is the root directory, which is the sign in page. Going to "/" will always redirect you to "/signIn".
+        To login and logout as a different chef/customer, go back to "/" in the url and login again differently.
+
 Github link : https://github.com/akshay-022/BoxMate
-Heroku link : 
+Heroku link : https://boiling-crag-95178-f06e80e48820.herokuapp.com/ | https://git.heroku.com/boiling-crag-95178.git
