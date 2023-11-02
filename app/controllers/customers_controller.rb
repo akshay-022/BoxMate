@@ -5,8 +5,6 @@ class CustomersController < ApplicationController
     @customer = Customer.find(id) # look up customer by unique ID
     @days = @customer.days.split(",")
     @chefs = @customer.chefs.split(",")
-    puts "Hello"
-    puts "#{@days} was successfully created."
     @meals = Customer.find_dishes(@days, @chefs)
 
     
