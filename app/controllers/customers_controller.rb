@@ -13,12 +13,18 @@ class CustomersController < ApplicationController
 
   def edit
     id = params[:id] # retrieve customer ID from URI route
-    @customer = Customer.find(id) # look up movie by unique ID
-    @days = @customer.days.split(",")
-    @chefs = @customer.chefs.split(",")
-    @chefs_table = Chef.get_chefs_meals
-    @meals = Customer.find_dishes(@days, @chefs)
-    @all_cuisines = Customer.all_cuisines
+    @customer = Customer.find_by(id: id) # look up movie by unique ID
+
+    if @customer
+      @days = @customer.days.split(",")
+      @chefs = @customer.chefs.split(",")
+      @chefs_table = Chef.get_chefs_meals
+      @meals = Customer.find_dishes(@days, @chefs)
+      @all_cuisines = Customer.all_cuisines
+    else
+      flash[:notice] = "Customer not found"
+      redirect_to customers_path # Redirect to the index page or handle as appropriate
+    end
   end
 
   def update
