@@ -37,4 +37,20 @@ Now, login again as aksh123, and observe that the number of customers on the day
 Play around a bit more if you want, maybe try some other chefs and customers and see how it updates!
 
 Github link : https://github.com/akshay-022/BoxMate
-Heroku link : 
+Heroku link : https://whispering-brook-51278-37b54226ab0d.herokuapp.com/
+
+Steps to run the Rspectests:
+- git clone git@github.com:akshay-022/BoxMate.git
+- cd BoxMate
+- bundle install
+- bundle exec rake db:drop
+- bundle exec rake db:create
+- bundle exec rake db:migrate
+- bundle exec rake db:test:prepare
+- bundle exec rake db:seed
+- bundle exec rspec
+
+Steps to run Cucumber Features:
+- bundle exec rake db:migrate RAILS_ENV=test
+- bundle exec rake db:seed RAILS_ENV=test
+- bundle exec rake cucumber
