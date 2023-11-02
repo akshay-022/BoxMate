@@ -23,16 +23,16 @@
     </tr>
   </thead>
   <tbody>
-    <% @chefs.each do |chef| %>
+    <% @chefs_table.each do |chef| %>
       <tr>
         <td>
-          <%= chef.name %>
+          <%= chef[:name] %>
         </td>
         <td>
-          <%= chef.description %>
+          <%= chef[:day] %>
         </td>
         <td>
-          <%= chef.address %>
+          <%= chef[:meal] %>
         </td>
       </tr>
     <% end %>
