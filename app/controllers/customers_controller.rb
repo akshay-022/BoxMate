@@ -31,17 +31,18 @@ class CustomersController < ApplicationController
     if Chef.find_by(name: params[:new_entry][:chef]).blank?
       flash[:notice] = "This entry does not exist!"
     else
-      #if Chef.find_by(name: params[:new_entry][:chef]).days.split(",").include(params[:new_entry][:day])?
-      @chefs = @chefs.append(params[:new_entry][:chef])
-      @days = @days.append(params[:new_entry][:day])
-      #Chef.update_db
-      @customer.chefs = @chefs*","
-      @customer.days = @days*","
-      @customer.save
-      flash[:notice] = "Your choice was successfully updated!"
-      #else
-      #  flash[:notice] = "This entry does not exist!"
-      #end
+      if Chef.find_by(name: params[:new_entry][:chef]).days.split(",").include?(params[:new_entry][:day])
+        @chefs = @chefs.append(params[:new_entry][:chef])
+        @days = @days.append(params[:new_entry][:day])
+        @customer.chefs = @chefs*","
+        @customer.days = @days*","
+        @customer.save
+        chef_here = Chef.update_num_customers(params[:new_entry][:chef], params[:new_entry][:day], 1) #1 to add an entry, -1 to delete an entry
+        chef_here.save
+        flash[:notice] = "Your choice was successfully updated!"
+      else
+        flash[:notice] = "This entry does not exist!"
+      end
     end
     redirect_to customer_path(@customer)
   end
@@ -64,6 +65,9 @@ class CustomersController < ApplicationController
       flash[:notice] = "No such entry exists"
       redirect_to customer_path(@customer)
     else
+      chef_here = Chef.update_num_customers(@chefs[our_index], params[:new_entry][:day], -1) #1 to add an entry, -1 to delete an entry
+      chef_here.save
+      array_cust = chef_here.num_customers.split(",")
       @chefs.delete_at(our_index)
       @days.delete_at(our_index)
       @customer.chefs = @chefs*","
@@ -72,13 +76,6 @@ class CustomersController < ApplicationController
       flash[:notice] = "Your entry was successfully deleted!"
       redirect_to customer_path(@customer)
     end
-  end
-
-  private
-  # Making "internal" methods private is not required, but is a common practice.
-  # This helps make clear which methods respond to requests, and which ones do not.
-  def movie_params
-    params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
 end
   
