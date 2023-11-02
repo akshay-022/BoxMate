@@ -9,6 +9,7 @@ class CreateCustomers < ActiveRecord::Migration
       t.text :description
       t.string :username
       t.string :password
+      t.string :days
       # Add fields that let Rails automatically keep track
       # of when movies are added or modified:
       t.timestamps

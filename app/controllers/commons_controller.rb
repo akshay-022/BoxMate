@@ -10,8 +10,6 @@ class CommonsController < ApplicationController
     #flash[:notice]= "Movie '#{params[:common][:username]}' deleted."
     user_chef = Chef.find_by(username: params[:common][:username])
     user_customer = Customer.find_by(username: params[:common][:username])
-    #user_customer = Customer.find_by(username: "omkar123")
-    #flash[:notice]= "Movie '#{user_customer}' deleted."
     if user_chef.blank?
       if user_customer.blank?
         flash[:notice]= "Invalid username"

@@ -1,46 +1,63 @@
 class CustomersController < ApplicationController
 
   def show
-    id = params[:id] # retrieve movie ID from URI route
-    @movie = Movie.find(id) # look up movie by unique ID
-    # will render app/views/movies/show.<extension> by default
-  end
-
-  def index
-    @movies = Movie.all
-  end
-
-  def customer_homepage
-    @chefs = Chef.all
-    @all_cuisines = Chef.all_cuisines
-  end
-
-  def new
-    # default: render 'new' template
-  end
-
-  def create
-    @movie = Movie.create!(movie_params)
-    flash[:notice] = "#{@movie.title} was successfully created."
-    redirect_to movies_path
+    id = params[:id] # retrieve customer ID from URI route
+    @customer = Customer.find(id) # look up customer by unique ID
+    @days = @customer.days.split(",")
+    @chefs = @customer.chefs.split(",")
+    @meals = Customer.find_dishes(@days, @chefs)
+    #flash[:notice] = "#{@customer.chefs} was successfully created."
+    #will render app/views/customers/show.<extension> by default
   end
 
   def edit
-    @movie = Movie.find params[:id]
+    #id = params[:id] # retrieve customer ID from URI route
+    #@customer = customer.find(id) # look up movie by unique ID
+    #@days = @customer.days.split(",")
+    #@chefs = @customer.chefs.split(",")
+    #@meals = Customer.find_dishes(@days, @chefs)
   end
 
   def update
-    @movie = Movie.find params[:id]
-    @movie.update_attributes!(movie_params)
-    flash[:notice] = "#{@movie.title} was successfully updated."
-    redirect_to movie_path(@movie)
+    #add all intermediate steps
+    @customer = Customer.find params[:id]
+    @chefs = @customer.chefs.split(",")
+    @days = @customer.days.split(",")
+    @chefs = @chefs.append(params[:new_entry][:chefs])
+    @days = @days.append(params[:new_entry][:day])
+    @customer.chefs = @chefs*","
+    @customer.days = @days*","
+    @customer.save
+    flash[:notice] = "Your choice was successfully updated!"
+    redirect_to customer_path(@customer)
   end
 
-  def destroy
-    @movie = Movie.find(params[:id])
-    @movie.destroy
-    flash[:notice] = "Movie '#{@movie.title}' deleted."
-    redirect_to movies_path
+  def choose_entry
+    #id = params[:id] # retrieve customer ID from URI route
+    #@customer = customer.find(id) # look up movie by unique ID
+    #@days = @customer.days.split(",")
+    #@chefs = @customer.chefs.split(",")
+    #@meals = Customer.find_dishes(@days, @chefs)
+  end
+
+  def destroy_entry
+    @customer = Customer.find params[:id]
+    @chefs = @customer.chefs.split(",")
+    @days = @customer.days.split(",")
+    @meals = Customer.find_dishes(@days, @chefs)
+    our_index = @days.find_index(params[:new_entry][:day])
+    if our_index.blank?
+      flash[:notice] = "No such entry exists"
+      redirect_to customer_path(@customer)
+    else
+      @chefs.delete_at(our_index)
+      @days.delete_at(our_index)
+      @customer.chefs = @chefs*","
+      @customer.days = @days*","
+      @customer.save
+      flash[:notice] = "Your entry was successfully deleted!"
+      redirect_to customer_path(@customer)
+    end
   end
 
   private
@@ -50,3 +67,4 @@ class CustomersController < ApplicationController
     params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
 end
+  

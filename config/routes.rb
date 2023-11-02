@@ -10,4 +10,7 @@ Rottenpotatoes::Application.routes.draw do
   put '/chefs/:id/update'=> "chefs#update", as: 'update_chef'
   put '/chefs/:id/destroy_entry'=> "chefs#destroy_entry", as: 'destroy_entry'
   get '/chefs/:id/choose_entry'=> "chefs#choose_entry", as: 'choose_entry'
+  put '/customers/:id/update'=> "customers#update", as: 'update_customer'
+  put '/customers/:id/destroy_entry'=> "chefs#destroy_entry", as: 'destroy_customer_entry'
+  get '/customers/:id/choose_entry'=> "chefs#choose_entry", as: 'choose_customer_entry'
 end

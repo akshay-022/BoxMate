@@ -1,24 +1,31 @@
-<!--  app/views/movies/show.html.erb -->
-<h2>Details about <em><%= @movie.title %></em></h2>
+<!--  This file is app/views/movies/index.html.erb -->
+<h2>This is what your week looks like!!</h2>
 
-<ul id="details">
-  <li>
-    Rating:
-    <%= @movie.rating %>
-  </li>
-  <li>
-    Released on:
-    <%= @movie.release_date.strftime("%B %d, %Y") %>
-  </li>
-</ul>
+<%#  Part 2: Start here... %>
 
-<h3>Description:</h3>
-<p id="description">
-  <%= @movie.description %>
-</p>
-
-<div class="row">
-  <%= link_to 'Edit', edit_movie_path(@movie), :class => 'btn btn-primary col-2' %>
-  <%= link_to 'Delete', movie_path(@movie), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>
-  <%= link_to 'Back to movie list', movies_path, :class => 'btn btn-primary col-2' %>
-</div>
+<table class="table table-striped col-md-12" id="movies">
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th>Meal</th>
+      <th>Chef</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for a in 1..@days.length() do%>
+      <tr>
+        <td>
+          <%= @days[a-1] %>
+        </td>
+        <td>
+          <%= @meals[a-1] %>
+        </td>
+        <td>
+          <%= @chefs[a-1] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Change your schedule', edit_customer_path(@customer), :class => 'btn btn-primary col-2' %>
+<%= link_to 'Remove an entry', choose_customer_entry_path(@customer), :class => 'btn btn-primary col-2' %>

@@ -1,12 +1,50 @@
-<h2>Edit Existing Movie</h2>
-<%= form_tag movie_path(@movie), :method => :put do %>
-  <%= label :movie, :title, 'Title', :class => 'col-form-label' %>
-  <%= text_field :movie, 'title', :class => 'form-control' %>
-  <%= label :movie, :rating, 'Rating', :class => 'col-form-label'  %>
-  <%= select :movie, :rating, ['G','PG','PG-13','R','NC-17'], {}, {:class => 'form-control col-1'} %>
-  <%= label :movie, :release_date, 'Released On', :class => 'col-form-label'  %>
-  <%= date_select :movie, :release_date, {}, :class => 'form-control col-2 d-inline' %>
+<h2>Edit your details customer!</h2>
+
+<!--  This file is app/views/movies/index.html.erb -->
+<h2>All Chefs</h2>
+
+<%#  Part 2: Start here... %>
+<%= form_tag chefs_path, method: :get, id: 'cuisine_selection_form' do %>
+  <% @all_cuisines.each do |cuisine| %>
+    <div class="form-check  form-check-inline">
+      <%= label_tag "cuisines[#{cuisine}]", cuisine, class: 'form-check-label' %>
+      <%= check_box_tag "cuisines[#{cuisine}]", "1",  1, class: 'form-check-input' %>
+    </div>
+  <% end %>
+  <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
+<% end %>
+
+<table class="table table-striped col-md-12" id="chefs">
+  <thead>
+    <tr>
+      <th>Chef's Name</th>
+      <th>Description</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @chefs.each do |chef| %>
+      <tr>
+        <td>
+          <%= chef.name %>
+        </td>
+        <td>
+          <%= chef.description %>
+        </td>
+        <td>
+          <%= chef.address %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= form_tag update_customer_path(@customer), :method => :put do %>
+  <%= label :new_entry, :day, 'Enter which day : ', :class => 'col-form-label' %>
+  <%= text_field :new_entry, :day, :class => 'form-control' %>
+  <%= label :new_entry, :chef, 'Enter which chef : ', :class => 'col-form-label' %>
+  <%= text_field :new_entry, :chef, :class => 'form-control' %>
   <br/>
-  <%= submit_tag 'Update Movie Info', :class => 'btn btn-primary' %>
-  <%= link_to 'Cancel', movies_path, :class => 'btn btn-secondary' %>
+  <%= submit_tag 'Update customer Info', :class => 'btn btn-primary' %>
 <% end %>
