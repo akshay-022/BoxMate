@@ -1,8 +1,6 @@
 class Customer < ActiveRecord::Base
     def self.find_dishes(days, chefs)
         meals = []
-        puts days
-        puts chefs
         for i in 1..days.length() do
             day = days[i-1]
             chef = chefs[i-1]
