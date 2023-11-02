@@ -12,8 +12,8 @@ chefs = [{:name => 'Akshay', :username => "aksh123", :password => "password123",
 		{:name => 'Tanisha', :username => "tanisha123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => 'vietnamese,gluten-free', :schedule => "Pho,Pho", :days => "Monday,Tuesday" , :max_customers => "3,4" ,:num_customers => "2,4", :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
   	 ]
 
-customers = [{:name => 'Omkar', :username => "omkar123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :days => "Monday,Tuesday" ,:chefs => "Akshay,-", :needs => "true,false", :description => "One of the authors of this SaaS app"},
-		{:name => 'Akshat', :username => "akshat123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :days => "Monday,Tuesday" ,:chefs =>"-,Vasavi", :needs => "true,true", :description => "One of the authors of this SaaS app"},
+customers = [{:name => 'Omkar', :username => "omkar123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :days => "Monday,Tuesday" ,:chefs => "Akshay,Vasavi", :needs => "true,false", :description => "One of the authors of this SaaS app"},
+		{:name => 'Akshat', :username => "akshat123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :days => "Monday,Tuesday" ,:chefs =>"Vasavi,Vasavi", :needs => "true,true", :description => "One of the authors of this SaaS app"},
 		{:name => 'Abhinav', :username => "abhinav123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :days => "Monday,Tuesday" ,:chefs => "Tanisha,Maya", :needs => "true,true", :description => "One of the authors of this SaaS app"},
 	]
 
@@ -24,4 +24,4 @@ end
 
 customers.each do |customer|
 	Customer.create!(customer)
-  end
+end
