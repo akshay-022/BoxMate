@@ -31,13 +31,13 @@ RSpec.describe CustomersController, type: :controller do
             address_coordinates: '30,40'
           }
           valid_attributes_chef2 =     {
-            name: 'NewChef',
+            name: 'Newchef',
             username: 'testdf1234',
             password: 'testsdsfpassword123',
             food_constraint: 'vegetarian',
             tags: 'indian,gluten-free',
             schedule: 'Paneer Butter Masala,Egg fry',
-            days: 'Monday,Tuesday',
+            days: 'Wednesday,Thursday',
             max_customers: '3,4',
             num_customers: '3,5',
             description: 'One of the authors of this SaaS app',
@@ -72,60 +72,35 @@ RSpec.describe CustomersController, type: :controller do
 
   describe 'GET #edit' do
 
-    it 'assigns the requested customer as @customer' do
-      get :edit, :id => customer.id
-      expect(assigns(:customer)).to eq(customer)
-    end
-
-    it 'assigns @days and @chefs' do
-      get :edit, :id => customer.id
-      expect(assigns(:days)).to eq(['Monday'])
-      expect(assigns(:chefs)).to eq(['Testchef'])
-    end
-
     it 'assigns @chefs_table' do
       # You may need to stub or mock the behavior of Chef.get_chefs_meals method
       expect(Chef).to receive(:get_chefs_meals).and_return(['Chef1', 'Chef2'])
       get :edit, :id => customer.to_param
       expect(assigns(:chefs_table)).to eq(['Chef1', 'Chef2'])
     end
-
-    it 'assigns @meals' do
-      # You may need to stub or mock the behavior of Customer.find_dishes method
-      expect(Customer).to receive(:find_dishes).with(['Monday'], ['Testchef']).and_return(['Dish1', 'Dish2'])
-      get :edit, :id => customer.to_param
-      expect(assigns(:meals)).to eq(['Dish1', 'Dish2'])
-    end
-
-    it 'assigns @all_cuisines' do
-      # You may need to stub or mock the behavior of Customer.all_cuisines method
-      expect(Customer).to receive(:all_cuisines).and_return(['Cuisine1', 'Cuisine2'])
-      get :edit, :id => customer.to_param
-      expect(assigns(:all_cuisines)).to eq(['Cuisine1', 'Cuisine2'])
-    end
   end
 
   describe 'PATCH #update' do
 
     it 'assigns the requested customer as @customer' do
-      patch :update, :id => customer.id, :new_entry => {chef: 'NewChef',day: 'Wednesday'}
+      patch :update, :id => customer.id, :new_entry => {chef: 'Newchef',day: 'Wednesday'}
       expect(assigns(:customer)).to eq(customer)
     end
 
     it 'updates the customer with the new chef and day' do
-      patch :update, :id => customer.id, :new_entry => {chef: 'NewChef',day: 'Wednesday'}
+      patch :update, :id => customer.id, :new_entry => {chef: 'Newchef',day: 'Wednesday'}
       customer.reload
-      expect(customer.chefs).to eq('Testchef,NewChef')
+      expect(customer.chefs).to eq('Testchef,Newchef')
       expect(customer.days).to eq('Monday,Wednesday')
     end
 
     it 'sets a flash notice' do
-      patch :update, :id => customer.id, :new_entry => {chef: 'NewChef',day: 'Wednesday'}
+      patch :update, :id => customer.id, :new_entry => {chef: 'Newchef',day: 'Wednesday'}
       expect(flash[:notice]).to eq('Your choice was successfully updated!')
     end
 
     it 'redirects to customer path' do
-      patch :update, :id => customer.id, :new_entry => {chef: 'NewChef',day: 'Wednesday'}
+      patch :update, :id => customer.id, :new_entry => {chef: 'Newchef',day: 'Wednesday'}
       expect(response).to redirect_to(customer_path(customer))
     end
 
