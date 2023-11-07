@@ -40,4 +40,21 @@ Note : "/" is the root directory, which is the sign in page. Going to "/" will a
         To login and logout as a different chef/customer, go back to "/" in the url and login again differently.
 
 Github link : https://github.com/akshay-022/BoxMate
-Heroku link : https://boiling-crag-95178-f06e80e48820.herokuapp.com/ | https://git.heroku.com/boiling-crag-95178.git
+Heroku link : https://whispering-brook-51278-37b54226ab0d.herokuapp.com/
+
+Steps to run the Rspectests:
+- git clone git@github.com:akshay-022/BoxMate.git
+- cd BoxMate
+- bundle install
+- bundle exec rake db:drop
+- bundle exec rake db:create
+- bundle exec rake db:migrate
+- bundle exec rake db:test:prepare
+- bundle exec rake db:seed
+- bundle exec rspec
+
+Steps to run Cucumber Features:
+- bundle exec rake db:drop RAILS_ENV=test
+- bundle exec rake db:migrate RAILS_ENV=test
+- bundle exec rake db:seed RAILS_ENV=test
+- bundle exec rake cucumber
