@@ -1,19 +1,19 @@
-class CreateCustomers < ActiveRecord::Migration
+class CreateChefs < ActiveRecord::Migration
   def up
-    create_table :customers do |t|
+    create_table :chefs do |t|
       t.string :name
-      t.string :chefs
-      t.string :username
+      t.string :schedule
       t.string :days
+      t.string :max_customers
+      t.string :num_customers
+      t.string :username
       # Add fields that let Rails automatically keep track
       # of when movies are added or modified:
       t.timestamps
     end
   end
 
-
-
   def down
-    drop_table :customers
+    drop_table :chefs
   end
 end
