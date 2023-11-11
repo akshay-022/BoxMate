@@ -31,12 +31,12 @@ chefinfos = [{:name => 'Akshay', :username => "aksh123", :password => "password1
 ]
 
 
-customerinfos = [{:name => 'Omkar', :username => "omkar123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
-				{:name => 'Omkar', :username => "omkar123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
-				{:name => 'Akshat', :username => "akshat123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
-				{:name => 'Akshat', :username => "akshat123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
-				{:name => 'Abhinav', :username => "abhinav123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
-				{:name => 'Abhinav', :username => "abhinav123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"}
+customerinfos = [{:name => 'Omkar', :username => "omkar123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
+				{:name => 'Omkar', :username => "omkar123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
+				{:name => 'Akshat', :username => "akshat123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
+				{:name => 'Akshat', :username => "akshat123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
+				{:name => 'Abhinav', :username => "abhinav123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
+				{:name => 'Abhinav', :username => "abhinav123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"}
 ]
 
 chefmeals.each do |chef_meal_i|

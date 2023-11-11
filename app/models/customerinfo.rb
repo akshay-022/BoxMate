@@ -1,6 +1,6 @@
 class Customerinfo < ActiveRecord::Base
 
-    has_many :customermeals
+    has_many :customermeals, dependent: :delete_all
     
     def self.get_customer_meal_details(customerinfo)
         @customers = customerinfo.customermeals
