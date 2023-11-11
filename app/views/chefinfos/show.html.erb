@@ -3,6 +3,7 @@
 
 <%#  Part 2: Start here... %>
 
+
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
@@ -37,3 +38,4 @@
 </table>
 <%= link_to 'Change your schedule', edit_chefinfo_path(@chefinfo), :class => 'btn btn-primary col-2' %>
 <%= link_to 'Remove an entry', choose_chefinfo_entry_path(@chefinfo), :class => 'btn btn-primary col-2' %>
+<%= link_to 'Log Out', commons_path, :class => 'btn btn-primary col-2' %>

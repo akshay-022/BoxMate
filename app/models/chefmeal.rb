@@ -29,5 +29,14 @@ class Chefmeal < ActiveRecord::Base
         chef_meal.save
       end
     end
+
+    def self.get_customers_per_chefmeal(chefmeal)
+      all_customers_per_chef = Customermeal.where(:chefmeal_id => chefmeal.id)
+      all_customers = []
+      all_customers_per_chef.each do |every_customer|
+        all_customers.append(every_customer.customerinfo)
+      end
+      return all_customers
+    end
 end
   
