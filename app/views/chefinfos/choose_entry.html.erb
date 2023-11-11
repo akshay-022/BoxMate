@@ -10,19 +10,19 @@
     </tr>
   </thead>
   <tbody>
-    <% for a in 1..@schedule.length() do%>
+    <% @chefmeals.each do |chefmeal| %>
       <tr>
         <td>
-          <%= @days[a-1] %>
+          <%= chefmeal.days %>
         </td>
         <td>
-          <%= @schedule[a-1] %>
+          <%= chefmeal.meal %>
         </td>
         <td>
-          <%= @max_customers[a-1] %>
+          <%= chefmeal.max_customers %>
         </td>
         <td>
-          <%= @num_customers[a-1] %>
+          <%= chefmeal.num_customers %>
         </td>
       </tr>
     <% end %>
@@ -30,7 +30,7 @@
 </table>
 
 
-<%= form_tag destroy_entry_path(@chef), :method => :put do %>
+<%= form_tag destroy_chefinfo_entry_path(@chefinfo), :method => :put do %>
   <%= label :new_entry, :day, 'Enter which day : ', :class => 'col-form-label' %>
   <%= text_field :new_entry, :day, :class => 'form-control' %>
   <br/>

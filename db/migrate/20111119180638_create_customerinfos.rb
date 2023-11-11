@@ -1,12 +1,10 @@
-class CreateChefs_info < ActiveRecord::Migration
+class CreateCustomerinfos < ActiveRecord::Migration
   def up
-    create_table :chefs_info do |t|
+    create_table :customerinfos do |t|
       t.string :name
       t.string :food_constraint #vegetarian/non-vegetarian/vegan/halal/kosher/eggetarian/jain
       t.string :tags
       t.text :description
-      t.string :address
-      t.string :address_coordinates
       t.string :username
       t.string :password
       # Add fields that let Rails automatically keep track
@@ -15,7 +13,9 @@ class CreateChefs_info < ActiveRecord::Migration
     end
   end
 
+
+  
   def down
-    drop_table :chefs_info
+    drop_table :customerinfos
   end
 end

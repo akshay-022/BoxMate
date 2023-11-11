@@ -6,51 +6,51 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-chefs = [{:name => 'Akshay', :username => "aksh123", :schedule => "Paneer Butter Masala", :days => "Monday" ,:max_customers => 3 ,:num_customers => 3},
-		{:name => 'Akshay', :username => "aksh123", :schedule => "Egg fry", :days => "Tuesday" ,:max_customers => 4 ,:num_customers => 3},
-		{:name => 'Vasavi', :username => "vasavi123", :schedule => "Paneer Chilli", :days => "Monday" , :max_customers => 3 ,:num_customers => 1},
-		{:name => 'Vasavi', :username => "vasavi123", :schedule => "French Toast", :days => "Tuesday" , :max_customers => 4 ,:num_customers => 2},
-		{:name => 'Maya', :username => "maya123", :schedule => "Noodles", :days => "Monday" , :max_customers => 3 ,:num_customers => 1},
-		{:name => 'Maya', :username => "maya123", :schedule => "Manchurian", :days => "Tuesday" , :max_customers => 4 ,:num_customers => 1},
-		{:name => 'Tanisha', :username => "tanisha123", :schedule => "Pho", :days => "Monday" , :max_customers => 3 ,:num_customers => 2},
-		{:name => 'Tanisha', :username => "tanisha123", :schedule => "Pho", :days => "Tuesday" , :max_customers => 4 ,:num_customers => 4},
+chefmeals = [{:username => "aksh123", :meal => "Paneer Butter Masala", :days => "Monday" ,:max_customers => 3 ,:num_customers => 2, :chefinfo_id => 1},
+		{:username => "aksh123", :meal => "Egg fry", :days => "Tuesday" ,:max_customers => 4 ,:num_customers => 2, :chefinfo_id => 1},
+		{:username => "vasavi123", :meal => "Paneer Chilli", :days => "Monday" , :max_customers => 3 ,:num_customers => 2, :chefinfo_id => 2},
+		{:username => "vasavi123", :meal => "French Toast", :days => "Tuesday" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 2},
+		{:username => "maya123", :meal => "Noodles", :days => "Monday" , :max_customers => 3 ,:num_customers => 0, :chefinfo_id => 3},
+		{:username => "maya123", :meal => "Manchurian", :days => "Tuesday" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 3},
+		{:username => "tanisha123", :meal => "Pho", :days => "Monday" , :max_customers => 3 ,:num_customers => 0, :chefinfo_id => 4},
+		{:username => "tanisha123", :meal => "Pho", :days => "Tuesday" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 4}
   	 ]
 
-customers = [{:name => 'Omkar', :username => "omkar123", :days => "Monday" ,:chefs => "Akshay"},
-		{:name => 'Omkar', :username => "omkar123", :days => "Tuesday" ,:chefs => "Vasavi"},
-		{:name => 'Akshat', :username => "akshat123", :days => "Monday" ,:chefs =>"Vasavi"},
-		{:name => 'Akshat', :username => "akshat123", :days => "Tuesday" ,:chefs =>"Vasavi"},
-		{:name => 'Abhinav', :username => "abhinav123", :days => "Monday" ,:chefs => "Tanisha"},
-		{:name => 'Abhinav', :username => "abhinav123", :days => "Tuesday" ,:chefs => "Maya"},
+customermeals = [{:username => "omkar123", :chefmeal_id => 1, :customerinfo_id => 1},
+		{:username => "omkar123", :chefmeal_id => 2, :customerinfo_id => 1},
+		{:username => "akshat123",:chefmeal_id =>3, :customerinfo_id => 2},
+		{:username => "akshat123",:chefmeal_id =>4, :customerinfo_id => 2},
+		{:username => "abhinav123",:chefmeal_id => 5, :customerinfo_id => 3},
+		{:username => "abhinav123",:chefmeal_id => 6, :customerinfo_id => 3}
 	]
 
-chefs_info = [{:name => 'Akshay', :username => "aksh123", :password => "password123",:food_constraint => 'vegetarian', :tags => 'indian,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
+chefinfos = [{:name => 'Akshay', :username => "aksh123", :password => "password123",:food_constraint => 'vegetarian', :tags => 'indian,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
 			{:name => 'Vasavi', :username => "vasavi123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
 			{:name => 'Maya', :username => "maya123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => 'chinese,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
-			{:name => 'Tanisha', :username => "tanisha123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => 'vietnamese,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
+			{:name => 'Tanisha', :username => "tanisha123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => 'vietnamese,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"}
 ]
 
 
-customers_info = [{:name => 'Omkar', :username => "omkar123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
+customerinfos = [{:name => 'Omkar', :username => "omkar123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
 				{:name => 'Omkar', :username => "omkar123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
 				{:name => 'Akshat', :username => "akshat123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
 				{:name => 'Akshat', :username => "akshat123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
 				{:name => 'Abhinav', :username => "abhinav123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
-				{:name => 'Abhinav', :username => "abhinav123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"},
+				{:name => 'Abhinav', :username => "abhinav123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app"}
 ]
 
-chefs.each do |chef|
-  Chef.create!(chef)
+chefmeals.each do |chef_meal_i|
+  Chefmeal.create!(chef_meal_i)
 end
 
-chefs_info.each do |chef_info|
-	Chef_info.create!(chef_info)
+chefinfos.each do |chef_info_i|
+	Chefinfo.create!(chef_info_i)
 end
 
-customers.each do |customer|
-	Customer.create!(customer)
+customermeals.each do |customer_meal_i|
+	Customermeal.create!(customer_meal_i)
 end
 
-customers_info.each do |customer_info|
-	Customer_info.create!(customer_info)
+customerinfos.each do |customer_info_i|
+	Customerinfo.create!(customer_info_i)
 end

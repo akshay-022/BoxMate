@@ -27,7 +27,7 @@
 </table>
 
 
-<%= form_tag destroy_customer_entry_path(@customer), :method => :put do %>
+<%= form_tag destroy_customerinfo_entry_path(@customerinfo), :method => :put do %>
   <%= label :new_entry, :day, 'Enter which day : ', :class => 'col-form-label' %>
   <%= text_field :new_entry, :day, :class => 'form-control' %>
   <br/>
