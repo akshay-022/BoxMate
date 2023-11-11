@@ -1,7 +1,10 @@
 <h2>Edit your details chef!</h2>
 <%= form_tag update_chefinfo_path(@chefinfo), :method => :put do %>
-  <%= label :new_entry, :day, 'Enter which day : ', :class => 'col-form-label' %>
-  <%= text_field :new_entry, :day, :class => 'form-control' %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= label :day, :day, 'Enter which day : ', :class => 'col-form-label' %>
+  <%= date_field_tag :day, :day, :class => 'form-control', :id => 'datepicker' %>
+  <%= label_tag :mealtime, 'Select meal:', :class => 'col-form-label' %>
+  <%= select_tag :mealtime, options_for_select(['Breakfast', 'Lunch', 'Snacks', 'Dinner'], :mealtime), :class => 'form-control' %>
   <%= label :new_entry, :meal, 'Enter your dish : ', :class => 'col-form-label' %>
   <%= text_field :new_entry, :meal, :class => 'form-control' %>
   <%= label :new_entry, :max_customers, 'Enter the maximum people you can cook for : ', :class => 'col-form-label' %>

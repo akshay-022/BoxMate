@@ -18,8 +18,9 @@
   <thead>
     <tr>
       <th>Chef's Name</th>
-      <th>Description</th>
-      <th>Address</th>
+      <th>date</th>
+      <th>Mealtime</th>
+      <th>Meal</th>
     </tr>
   </thead>
   <tbody>
@@ -32,6 +33,9 @@
           <%= chef[:days] %>
         </td>
         <td>
+          <%= chef[:mealtime] %>
+        </td>
+        <td>
           <%= chef[:meal] %>
         </td>
       </tr>
@@ -41,8 +45,11 @@
 
 
 <%= form_tag update_customerinfo_path(@customerinfo), :method => :put do %>
-  <%= label :new_entry, :day, 'Enter which day : ', :class => 'col-form-label' %>
-  <%= text_field :new_entry, :day, :class => 'form-control' %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= label :day, :day, 'Enter which day : ', :class => 'col-form-label' %>
+  <%= date_field_tag :day, :day, :class => 'form-control', :id => 'datepicker' %>
+  <%= label_tag :mealtime, 'Select meal:', :class => 'col-form-label' %>
+  <%= select_tag :mealtime, options_for_select(['Breakfast', 'Lunch', 'Snacks', 'Dinner'], :mealtime), :class => 'form-control' %>
   <%= label :new_entry, :chef, 'Enter which chef : ', :class => 'col-form-label' %>
   <%= text_field :new_entry, :chef, :class => 'form-control' %>
   <br/>

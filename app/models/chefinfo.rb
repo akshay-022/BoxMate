@@ -1,5 +1,4 @@
 class Chefinfo < ActiveRecord::Base
-
-  has_many :chefmeals, dependent: :delete_all
+  has_many :chefmeals, :dependent => :destroy
 end
   

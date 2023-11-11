@@ -1,8 +1,11 @@
+require 'date'
+
 class CreateChefmeals < ActiveRecord::Migration
   def up
     create_table :chefmeals do |t|
       t.string :meal
-      t.string :days
+      t.date :days
+      t.string :mealtime
       t.integer :max_customers
       t.integer :num_customers
       t.string :username

@@ -1,7 +1,7 @@
 class Chefmeal < ActiveRecord::Base
 
   belongs_to :chefinfo
-  has_many :customermeals, dependent: :delete_all
+  has_many :customermeals, :dependent => :destroy
 
     def self.get_chefs_meals
       final_table = []

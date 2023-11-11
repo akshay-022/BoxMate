@@ -6,14 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-chefmeals = [{:username => "aksh123", :meal => "Paneer Butter Masala", :days => "Monday" ,:max_customers => 3 ,:num_customers => 2, :chefinfo_id => 1},
-		{:username => "aksh123", :meal => "Egg fry", :days => "Tuesday" ,:max_customers => 4 ,:num_customers => 2, :chefinfo_id => 1},
-		{:username => "vasavi123", :meal => "Paneer Chilli", :days => "Monday" , :max_customers => 3 ,:num_customers => 2, :chefinfo_id => 2},
-		{:username => "vasavi123", :meal => "French Toast", :days => "Tuesday" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 2},
-		{:username => "maya123", :meal => "Noodles", :days => "Monday" , :max_customers => 3 ,:num_customers => 0, :chefinfo_id => 3},
-		{:username => "maya123", :meal => "Manchurian", :days => "Tuesday" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 3},
-		{:username => "tanisha123", :meal => "Pho", :days => "Monday" , :max_customers => 3 ,:num_customers => 0, :chefinfo_id => 4},
-		{:username => "tanisha123", :meal => "Pho", :days => "Tuesday" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 4}
+require 'date'
+
+chefmeals = [{:username => "aksh123", :meal => "Paneer Butter Masala", :days => Date.new(2023, 11, 15), :mealtime => "Lunch" ,:max_customers => 3 ,:num_customers => 2, :chefinfo_id => 1},
+		{:username => "aksh123", :meal => "Egg fry", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" ,:max_customers => 4 ,:num_customers => 2, :chefinfo_id => 1},
+		{:username => "vasavi123", :meal => "Paneer Chilli", :days => Date.new(2023, 11, 15) , :mealtime => "Lunch" , :max_customers => 3 ,:num_customers => 2, :chefinfo_id => 2},
+		{:username => "vasavi123", :meal => "French Toast", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 2},
+		{:username => "maya123", :meal => "Noodles", :days => Date.new(2023, 11, 15) , :mealtime => "Lunch" , :max_customers => 3 ,:num_customers => 0, :chefinfo_id => 3},
+		{:username => "maya123", :meal => "Manchurian", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 3},
+		{:username => "tanisha123", :meal => "Pho", :days => Date.new(2023, 11, 15) , :mealtime => "Lunch" , :max_customers => 3 ,:num_customers => 0, :chefinfo_id => 4},
+		{:username => "tanisha123", :meal => "Pho", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 4}
   	 ]
 
 customermeals = [{:username => "omkar123", :chefmeal_id => 1, :customerinfo_id => 1},

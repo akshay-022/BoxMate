@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Day</th>
+      <th>Mealtime</th>
       <th>Meal</th>
       <th>Chef</th>
     </tr>
@@ -13,6 +14,9 @@
       <tr>
         <td>
           <%= @days[a-1] %>
+        </td>
+        <td>
+          <%= @mealtimes[a-1] %>
         </td>
         <td>
           <%= @meals[a-1] %>
@@ -28,8 +32,10 @@
 
 
 <%= form_tag destroy_customerinfo_entry_path(@customerinfo), :method => :put do %>
-  <%= label :new_entry, :day, 'Enter which day : ', :class => 'col-form-label' %>
-  <%= text_field :new_entry, :day, :class => 'form-control' %>
+  <%= label :day, :day, 'Enter which day : ', :class => 'col-form-label' %>
+  <%= date_field_tag :day, :day, :class => 'form-control', :id => 'datepicker' %>
+  <%= label_tag :mealtime, 'Select meal:', :class => 'col-form-label' %>
+  <%= select_tag :mealtime, options_for_select(['Breakfast', 'Lunch', 'Snacks', 'Dinner'], :mealtime), :class => 'form-control' %>
   <br/>
   <%= submit_tag 'Destroy Chef Entry', 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2' %>
 <% end %>

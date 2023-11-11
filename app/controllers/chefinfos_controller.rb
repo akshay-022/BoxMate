@@ -14,7 +14,7 @@ class ChefinfosController < ApplicationController
   def update
     #add all intermediate steps
     @chefinfo = Chefinfo.find params[:id]
-    Chefmeal.create!({meal: params[:new_entry][:meal], days: params[:new_entry][:day], max_customers: params[:new_entry][:max_customers], num_customers: 0, chefinfo_id: params[:id], username: @chefinfo.username})
+    Chefmeal.create!({meal: params[:new_entry][:meal], mealtime: params[:mealtime] ,days: params[:day], max_customers: params[:new_entry][:max_customers], num_customers: 0, chefinfo_id: params[:id], username: @chefinfo.username})
     flash[:notice] = "Your info was successfully updated!"
     redirect_to chefinfo_path(@chefinfo)
   end
@@ -27,7 +27,8 @@ class ChefinfosController < ApplicationController
   def destroy_entry
     @chefinfo = Chefinfo.find params[:id]
     @chefmeals = @chefinfo.chefmeals
-    meal_to_delete = @chefmeals.find_by(days: params[:new_entry][:day])
+    puts params
+    meal_to_delete = @chefmeals.find_by(days: params[:day], mealtime: params[:mealtime])
     if meal_to_delete.blank?
       flash[:notice] = "No such entry exists"
       redirect_to chefinfo_path(@chefinfo)
