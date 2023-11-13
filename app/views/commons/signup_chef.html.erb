@@ -97,6 +97,8 @@ span.psw {
     <%= label :common, :address_coordinates, 'Address coordinates eg: "30,40"', :class => 'col-form-label' %>
     <%= text_field :common, :address_coordinates, :class => 'form-control' %>
 
+    <%= label :common, :subscription, 'Subscription Recurrence (None, Daily, Weekly)', :class => 'col-form-label' %>
+    <%= select_tag :subscription, options_for_select(['None', 'Daily', 'Weekly'], :subscription), :class => 'form-control' %>
 
   </div>    
     

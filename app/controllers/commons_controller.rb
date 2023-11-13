@@ -45,7 +45,7 @@ class CommonsController < ApplicationController
     #flash[:notice]= "Movie '#{params[:common][:username]}' deleted."
     user_chef = Chefinfo.find_by(username: params[:common][:username])
     if user_chef.blank?
-      chefinfo = {username: params[:common][:username], password: params[:common][:password], name: params[:common][:name], address: params[:common][:address], address_coordinates: params[:common][:address_coordinates], tags: params[:common][:tags], food_constraint: params[:common][:food_constraint], description: params[:common][:description]}
+      chefinfo = {username: params[:common][:username], password: params[:common][:password], name: params[:common][:name], address: params[:common][:address], address_coordinates: params[:common][:address_coordinates], tags: params[:common][:tags], food_constraint: params[:common][:food_constraint], description: params[:common][:description], subscription:params[:common][:subscription]}
       Chefinfo.create!(chefinfo)
       flash[:notice]= "Your profile was successfully created!!"
       redirect_to commons_path

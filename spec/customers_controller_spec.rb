@@ -28,7 +28,8 @@ RSpec.describe CustomersController, type: :controller do
             num_customers: '3,3',
             description: 'One of the authors of this SaaS app',
             address: '125 st, New York',
-            address_coordinates: '30,40'
+            address_coordinates: '30,40', 
+            subscription:'None'
           }
           valid_attributes_chef2 =     {
             name: 'Newchef',
@@ -42,7 +43,8 @@ RSpec.describe CustomersController, type: :controller do
             num_customers: '3,5',
             description: 'One of the authors of this SaaS app',
             address: '125 st, Harlem',
-            address_coordinates: '30,40'
+            address_coordinates: '30,40',
+            subscription:'Daily'
           }
 
   customer =  Customer.create!(valid_attributes_customer)

@@ -1,6 +1,10 @@
 <h2>Edit your details chef!</h2>
 <%= form_tag update_chefinfo_path(@chefinfo), :method => :put do %>
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <h5 style="margin-top:0.5cm;">Change Subscription Availability: </h5>
+  <%= label :new_entry, :subscription, 'Frequency', :class => 'col-form-label' %>
+  <%= select_tag :subscription, options_for_select(['None', 'Daily', 'Weekly'], :subscription), :class => 'form-control' %>
+  <h5 style="margin-top:0.75cm;">Edit Meal Details: </h5>
   <%= label :day, :day, 'Enter which day : ', :class => 'col-form-label' %>
   <%= date_field_tag :day, :day, :class => 'form-control', :id => 'datepicker' %>
   <%= label_tag :mealtime, 'Select meal:', :class => 'col-form-label' %>

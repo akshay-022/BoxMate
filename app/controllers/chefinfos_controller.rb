@@ -14,8 +14,16 @@ class ChefinfosController < ApplicationController
   def update
     #add all intermediate steps
     @chefinfo = Chefinfo.find params[:id]
-    Chefmeal.create!({meal: params[:new_entry][:meal], mealtime: params[:mealtime] ,days: params[:day], max_customers: params[:new_entry][:max_customers], num_customers: 0, chefinfo_id: params[:id], username: @chefinfo.username})
-    flash[:notice] = "Your info was successfully updated!"
+    if @chefinfo.subscription == params[:subscription] && params[:new_entry][:meal]!=""
+      flash[:notice] = "Your info was successfully updated!"
+      Chefmeal.create!({meal: params[:new_entry][:meal], mealtime: params[:mealtime] ,days: params[:day], max_customers: params[:new_entry][:max_customers], num_customers: 0, chefinfo_id: params[:id], username: @chefinfo.username})
+    elsif @chefinfo.subscription != params[:subscription] 
+      flash[:notice] = "Subscription availability updated!"
+      @chefinfo.update_attribute(:subscription, params[:subscription])
+    else
+      flash[:notice] = "No changes entered."
+
+    end
     redirect_to chefinfo_path(@chefinfo)
   end
 

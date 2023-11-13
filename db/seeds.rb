@@ -26,10 +26,10 @@ customermeals = [{:username => "omkar123", :chefmeal_id => 1, :customerinfo_id =
 		{:username => "abhinav123",:chefmeal_id => 6, :customerinfo_id => 3}
 	]
 
-chefinfos = [{:name => 'Akshay', :username => "aksh123", :password => "password123",:food_constraint => 'vegetarian', :tags => 'indian,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
-			{:name => 'Vasavi', :username => "vasavi123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
-			{:name => 'Maya', :username => "maya123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => 'chinese,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
-			{:name => 'Tanisha', :username => "tanisha123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => 'vietnamese,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"}
+chefinfos = [{:name => 'Akshay', :username => "aksh123", :password => "password123",:food_constraint => 'vegetarian', :tags => 'indian,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40", :subscription => "None"},
+			{:name => 'Vasavi', :username => "vasavi123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40",:subscription => "None"},
+			{:name => 'Maya', :username => "maya123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => 'chinese,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40",:subscription => "Daily"},
+			{:name => 'Tanisha', :username => "tanisha123", :password => "password123", :food_constraint => 'non-vegetarian', :tags => 'vietnamese,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40",:subscription => "Weekly"}
 ]
 
 
