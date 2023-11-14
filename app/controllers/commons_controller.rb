@@ -16,6 +16,7 @@ class CommonsController < ApplicationController
         redirect_to commons_path
       else
         if user_customer.password == params[:common][:password]
+          session[:customer_username] = user_customer.username
           redirect_to customerinfo_path(user_customer)
         else
           flash[:notice]= "Invalid password"
@@ -24,6 +25,7 @@ class CommonsController < ApplicationController
       end
     else
       if user_chef.password == params[:common][:password]
+        session[:chef_username] = user_chef.username
         redirect_to (chefinfo_path(user_chef))
       else
         flash[:notice]= "Invalid password"
@@ -70,6 +72,12 @@ class CommonsController < ApplicationController
     end
   end
 
+  def destroy
+    logged_in = (session[:chef_username].present? || session[:cutomer_username].present?) ? true : false
+    session[:chef_username] = nil
+    session[:customer_username] = nil
+    redirect_to root_path, notice: logged_in ? 'Logged out successfully' : nil
+  end
 
 
 end

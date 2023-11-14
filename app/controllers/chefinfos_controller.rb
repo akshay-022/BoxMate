@@ -1,4 +1,5 @@
 class ChefinfosController < ApplicationController
+  before_action :authenticate_chef!, only: [:show, :edit, :update, :choose_entry, :see_meal, :destroy_entry]
 
   def show
     id = params[:id] # retrieve movie ID from URI route
@@ -55,5 +56,10 @@ class ChefinfosController < ApplicationController
       flash[:notice] = "Your entry was successfully deleted!"
       redirect_to chefinfo_path(@chefinfo)
     end
+  end
+
+  def authenticate_chef!
+    @chefinfo = Chefinfo.find params[:id]
+    redirect_to root_path, notice: 'You are not authorized to access this page.' unless session[:chef_username].present? && session[:chef_username] == @chefinfo.username
   end
 end

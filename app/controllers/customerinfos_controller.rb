@@ -1,4 +1,5 @@
 class CustomerinfosController < ApplicationController
+  before_action :authenticate_customer!, only: [:show, :edit, :update, :choose_entry, :destroy_entry]
 
   def show
     id = params[:id] # retrieve customer ID from URI route
@@ -60,6 +61,11 @@ class CustomerinfosController < ApplicationController
       flash[:notice] = "Your entry was successfully deleted!"
       redirect_to customerinfo_path(@customerinfo)
     end
+  end
+
+  def authenticate_customer!
+    @customerinfo = Customerinfo.find params[:id]
+    redirect_to root_path, notice: 'You are not authorized to access this page.' unless session[:customer_username].present? && session[:customer_username] == @customerinfo.username
   end
 end
   
