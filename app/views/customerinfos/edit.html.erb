@@ -62,6 +62,8 @@
   <%= date_field_tag :day, :day, :class => 'form-control', :id => 'datepicker' %>
   <%= label_tag :mealtime, 'Select meal:', :class => 'col-form-label' %>
   <%= select_tag :mealtime, options_for_select(['Breakfast', 'Lunch', 'Snacks', 'Dinner'], :mealtime), :class => 'form-control' %>
+  <%= label :new_entry, :cuisine, 'Enter which Cuisine : ', :class => 'col-form-label' %>
+  <%= text_field :new_entry, :cuisine, :class => 'form-control' %>
   <%= label :new_entry, :chef, 'Enter which chef : ', :class => 'col-form-label' %>
   <%= text_field :new_entry, :chef, :class => 'form-control' %>
   <br/>

@@ -33,6 +33,7 @@ class CustomerinfosController < ApplicationController
 
   def update
     #add all intermediate steps
+    @chef_meal_exist = false
     @customerinfo = Customerinfo.find params[:id]
     @days, @mealtimes, @chefs, @meals = Customerinfo.get_customer_meal_details(@customerinfo)
     @chefinfo = Chefinfo.find_by(name: params[:new_entry][:chef])
@@ -40,15 +41,18 @@ class CustomerinfosController < ApplicationController
       flash[:notice] = "This chef does not exist!"
     elsif @chefinfo.chefmeals.find_by(days: params[:day]).blank?
       flash[:notice] = "This chef does not cook on this day!"
+    elsif @chefinfo.chefmeals.find_by(days: params[:day], cuisine: params[:new_entry][:cuisine]).blank?
+      flash[:notice] = "This chef does not cook this cuisine this day!"
     else
       chef_name = params[:new_entry][:chef]
       day_needed = params[:day]
       customer = {:customerinfo_id => @customerinfo.id, :chefmeal_id => @chefinfo.chefmeals.find_by(days: params[:day]).id ,:username => @customerinfo.username}
       Customermeal.create!(customer)
-      Chefmeal.update_num_customers(params[:new_entry][:chef], params[:day], 1) #1 to add an entry, -1 to delete an entry
+      Chefmeal.update_num_customers(params[:new_entry][:chef], params[:day], params[:new_entry][:cuisine], 1) #1 to add an entry, -1 to delete an entry
       flash[:notice] = "Your choice was successfully updated!"
+      @chef_meal_exist = true
     end
-    redirect_to customerinfo_path(@customerinfo)
+    @chef_meal_exist ? redirect_to(customerinfo_path(@customerinfo)) : redirect_to(edit_customerinfo_path)
   end
 
   def choose_entry
@@ -74,8 +78,11 @@ class CustomerinfosController < ApplicationController
   end
 
   def authenticate_customer!
-    @customerinfo = Customerinfo.find params[:id]
-    redirect_to root_path, notice: 'You are not authorized to access this page.' unless session[:customer_username].present? && session[:customer_username] == @customerinfo.username
+    @customerinfo = Customerinfo.find_by(id: params[:id])
+    
+    unless @customerinfo && session[:customer_username] == @customerinfo.username
+      redirect_to root_path, notice: 'You are not authorized to access this page.'
+    end
   end
 end
   
