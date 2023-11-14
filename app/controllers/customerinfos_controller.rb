@@ -48,7 +48,7 @@ class CustomerinfosController < ApplicationController
       day_needed = params[:day]
       customer = {:customerinfo_id => @customerinfo.id, :chefmeal_id => @chefinfo.chefmeals.find_by(days: params[:day]).id ,:username => @customerinfo.username}
       Customermeal.create!(customer)
-      Chefmeal.update_num_customers(params[:new_entry][:chef], params[:day], params[:new_entry][:cuisine], 1) #1 to add an entry, -1 to delete an entry
+      Chefmeal.update_num_customers(params[:new_entry][:chef], params[:day], 1) #1 to add an entry, -1 to delete an entry
       flash[:notice] = "Your choice was successfully updated!"
       @chef_meal_exist = true
     end
