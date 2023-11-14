@@ -1,14 +1,12 @@
 <h2>Edit your details customer!</h2>
 
-<!--  This file is app/views/movies/index.html.erb -->
 <h2>All Chefs</h2>
 
-<%#  Part 2: Start here... %>
-<%= form_tag chefinfos_path, method: :get, id: 'cuisine_selection_form' do %>
+<%= form_tag edit_customerinfo_path, method: :get, id: 'cuisine_selection_form' do %>
   <% @all_cuisines.each do |cuisine| %>
     <div class="form-check  form-check-inline">
       <%= label_tag "cuisines[#{cuisine}]", cuisine, class: 'form-check-label' %>
-      <%= check_box_tag "cuisines[#{cuisine}]", "1",  1, class: 'form-check-input' %>
+      <%= check_box_tag "cuisines[#{cuisine}]", "1", @cuisines_to_show.include?(cuisine), class: 'form-check-input' %>
     </div>
   <% end %>
   <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
@@ -17,10 +15,21 @@
 <table class="table table-striped col-md-12" id="chefs">
   <thead>
     <tr>
-      <th>Chef's Name</th>
-      <th>date</th>
-      <th>Mealtime</th>
-      <th>Meal</th>
+      <th class="<%= 'hilite' if @highlight_column == 'username' %>">
+        <%= link_to 'Chefs Name', edit_customerinfo_path(sort: 'username'), id: 'chefname_header' %>
+      </th>
+      <th class="<%= 'hilite' if @highlight_column == 'days' %>">
+        <%= link_to 'date', edit_customerinfo_path(sort: 'days'), id: 'date_header' %>
+      </th>
+      <th class="<%= 'hilite' if @highlight_column == 'mealtime' %>">
+        <%= link_to 'Mealtime', edit_customerinfo_path(sort: 'mealtime'), id: 'meal_time_header' %>
+      </th>
+      <th class="<%= 'hilite' if @highlight_column == 'meal' %>">
+        <%= link_to 'Meal', edit_customerinfo_path(sort: 'meal'), id: 'meal_header' %>
+      </th>
+      <th class="<%= 'hilite' if @highlight_column == 'cuisine' %>">
+        <%= link_to 'Cuisine', edit_customerinfo_path(sort: 'cuisine'), id: 'cuisine_header' %>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -37,6 +46,9 @@
         </td>
         <td>
           <%= chef[:meal] %>
+        </td>
+        <td>
+          <%= chef[:cuisine] %>
         </td>
       </tr>
     <% end %>

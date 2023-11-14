@@ -10,6 +10,7 @@ class CreateChefmeals < ActiveRecord::Migration
       t.integer :num_customers
       t.string :username
       t.integer :chefinfo_id
+      t.string :cuisine
       t.references :chefinfo
       # Add fields that let Rails automatically keep track
       # of when movies are added or modified:

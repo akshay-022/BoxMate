@@ -11,7 +11,17 @@ class CustomerinfosController < ApplicationController
   def edit
     id = params[:id] # retrieve customer ID from URI route
     @customerinfo = Customerinfo.find(id)
-    @chefs_table = Chefmeal.all
+    if (params[:cuisines] == nil && params[:sort] == nil) && (session[:cuisines] != nil || session[:sort] != nil)
+      redirect_to(edit_customerinfo_path(sort: session[:sort], cuisines: session[:cuisines]))
+    end
+    session[:sort] = params[:sort] if params[:sort]
+    session[:cuisines] = params[:cuisines] if params[:cuisines]
+
+    params[:sort] ||= session[:sort]
+    params[:cuisines] ||= session[:cuisines]
+    @cuisines_to_show = params[:cuisines] ? params[:cuisines].keys  : (session[:cuisines] ? session[:cuisines] : Customermeal.all_cuisines )
+    @highlight_column = params[:sort] || session[:sort] || nil
+    @chefs_table = Chefmeal.with_cuisines(@cuisines_to_show).order(@highlight_column)
     if @customerinfo
       @days, @mealtimes, @chefs, @meals = Customerinfo.get_customer_meal_details(@customerinfo)
       @all_cuisines = Customermeal.all_cuisines

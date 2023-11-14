@@ -47,5 +47,13 @@ class Chefmeal < ActiveRecord::Base
       end
       return all_customers
     end
+
+    def self.with_cuisines(cuisines_list)
+      if cuisines_list.blank?
+        all
+      else
+        where(cuisine: cuisines_list)
+      end
+    end
 end
   
