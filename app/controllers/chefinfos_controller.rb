@@ -33,9 +33,13 @@ class ChefinfosController < ApplicationController
   end
 
   def see_meal
-    @chef_id = params[:id]
-    @chefmeal = Chefmeal.find(@chef_id)
-    @customers = Chefmeal.get_customers_per_chefmeal(@chefmeal)
+    @id = params[:id]
+    @chefmeal = Chefmeal.find_by(id: @id)
+    @customers = Chefmeal.get_customers_per_chefmeal_via_username(@chefmeal)
+    @customer_info = []
+    @customers.each do |every_customer|
+      @customer_info.append(Customerinfo.find_by(username: every_customer))
+    end
   end
 
   def destroy_entry
