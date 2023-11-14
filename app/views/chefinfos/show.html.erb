@@ -12,6 +12,7 @@
       <th>Meal</th>
       <th>Max Customers</th>
       <th>Customers</th>
+      <th>Details</th>
     </tr>
   </thead>
   <tbody>
@@ -31,6 +32,9 @@
         </td>
         <td>
           <%= chefmeal.num_customers %>
+        </td>
+        <td>
+        <%= link_to 'View Details', see_meal_path(chefmeal), :class => "btn btn-outline-primary" %>
         </td>
       </tr>
     <% end %>

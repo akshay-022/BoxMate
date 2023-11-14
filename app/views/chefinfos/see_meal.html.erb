@@ -1,0 +1,39 @@
+<h3>Customers Signed Up For: <%= @chefmeal.meal %> on <%= @chefmeal.days%></h3>
+
+<table class="table table-striped col-md-12" id="movies">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Food Constraints</th>
+      <th>Address</th>
+      <th>Address Coordinates</th>
+      <th>Order Placed</th>
+    </tr>
+    <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td>
+          <%= customer.name %>
+        </td>
+        <td>
+          <%= customer.username %>
+        </td>
+        <td>
+          <%= customer.food_constraint %>
+        </td>
+        <td>
+          <%= customer.address %>
+        </td>
+        <td>
+          <%= customer.address_coordinates %>
+        </td>
+        <td>
+          <%= customer.created_at %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  </thead>
+</table>
+

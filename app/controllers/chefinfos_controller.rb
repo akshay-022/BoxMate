@@ -32,6 +32,12 @@ class ChefinfosController < ApplicationController
     @chefmeals = @chefinfo.chefmeals
   end
 
+  def see_meal
+    @chef_id = params[:id]
+    @chefmeal = Chefmeal.find(@chef_id)
+    @customers = Chefmeal.get_customers_per_chefmeal(@chefmeal)
+  end
+
   def destroy_entry
     @chefinfo = Chefinfo.find params[:id]
     @chefmeals = @chefinfo.chefmeals
