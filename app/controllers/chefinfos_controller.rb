@@ -34,7 +34,7 @@ class ChefinfosController < ApplicationController
   end
 
   def see_meal
-    @id = params[:id]
+    @id = params[:chefmealid]
     @chefmeal = Chefmeal.find_by(id: @id)
     @customers = Chefmeal.get_customers_per_chefmeal_via_username(@chefmeal)
     @customer_info = []
@@ -59,7 +59,10 @@ class ChefinfosController < ApplicationController
   end
 
   def authenticate_chef!
-    @chefinfo = Chefinfo.find params[:id]
-    redirect_to root_path, notice: 'You are not authorized to access this page.' unless session[:chef_username].present? && session[:chef_username] == @chefinfo.username
+    @chefinfo = Chefinfo.find_by(id: params[:id])
+    
+    unless @chefinfo && session[:chef_username] == @chefinfo.username
+      redirect_to root_path, notice: 'You are not authorized to access this page.'
+    end
   end
 end

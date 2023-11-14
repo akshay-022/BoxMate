@@ -34,7 +34,7 @@
           <%= chefmeal.num_customers %>
         </td>
         <td>
-        <%= link_to 'View Details', see_meal_path(chefmeal), :class => "btn btn-outline-primary" %>
+        <%= link_to 'View Details', see_meal_path(chefmealid: chefmeal.id), :class => "btn btn-outline-primary" %>
         </td>
       </tr>
     <% end %>
