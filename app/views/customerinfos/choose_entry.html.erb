@@ -32,8 +32,8 @@
 
 
 <%= form_tag destroy_customerinfo_entry_path(@customerinfo), :method => :put do %>
-  <%= label :day, :day, 'Enter which day : ', :class => 'col-form-label' %>
-  <%= date_field_tag :day, :day, :class => 'form-control', :id => 'datepicker' %>
+  <%= label :day, :day, 'Enter which day (At least 2 days from now): ', :class => 'col-form-label' %>
+  <%= date_field_tag :day, :day, :class => 'form-control', :id => 'datepicker', min: (Date.today + 2).to_s  %>
   <%= label_tag :mealtime, 'Select meal:', :class => 'col-form-label' %>
   <%= select_tag :mealtime, options_for_select(['Breakfast', 'Lunch', 'Snacks', 'Dinner'], :mealtime), :class => 'form-control' %>
   <br/>

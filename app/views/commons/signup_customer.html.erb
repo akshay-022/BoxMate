@@ -91,11 +91,11 @@ span.psw {
     <%= label :common, :description, 'Description', :class => 'col-form-label' %>
     <%= text_field :common, :description, :class => 'form-control' %>
 
-    <%= label :common, :address, 'Address', :class => 'col-form-label' %>
-    <%= text_field :common, :address, :class => 'form-control' %>
+    <%= label :common, :address_coordinates_x, 'Address coordinate x (house latitude, ex:30)', :class => 'col-form-label' %>
+    <%= number_field :common, :address_coordinates_x, :class => 'form-control' %>
 
-    <%= label :common, :address_coordinates, 'Address coordinates eg: "30,40"', :class => 'col-form-label' %>
-    <%= text_field :common, :address_coordinates, :class => 'form-control' %>
+    <%= label :common, :address_coordinates_y, 'Address coordinate y (house longitude, ex:30)', :class => 'col-form-label' %>
+    <%= number_field :common, :address_coordinates_y, :class => 'form-control' %>
 
   </div>    
     
