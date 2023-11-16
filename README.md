@@ -79,3 +79,9 @@ Steps to run Cucumber Features:
 - bundle exec rake db:migrate RAILS_ENV=test
 - bundle exec rake db:seed RAILS_ENV=test
 - bundle exec rake cucumber
+
+
+# Test additions since iter 1
+
+1. Iter-1 had 6 scenarios. Iter-2 has 16 scenarios.
+2. We have added rspec tests for all the code we added, with a total coverage of 100% now.
