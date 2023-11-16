@@ -174,5 +174,58 @@ RSpec.describe CustomerinfosController, type: :controller do
         expect(assigns(:chefs)).to be_a(Array)
         expect(assigns(:meals)).to be_a(Array)
     end
+
+    it 'assigns the requested customerinfo and meal details as @customerinfo, @days, @mealtimes, @chefs, and @meals' do
+      customerinfo = Customerinfo.create!(valid_customer_attributes)
+      session[:customer_username] = customerinfo.username
+
+      # Create a test chef
+      valid_chef_attributes = 
+      {
+        name: 'Test Chef',
+        username: 'test_chef',
+        password: 'password123',
+        food_constraint: 'vegetarian',
+        tags: 'tag1, tag2',
+        description: 'Test Chef description',
+        address: 'Test Chef Address',
+        address_coordinates: '12.345,67.890',
+        subscription: 'None'
+      }
+      test_chef = Chefinfo.create!(valid_chef_attributes)
+
+      # Ensure the chef exists and cooks on the specified day and cuisine
+      chefmeal = Chefmeal.create!(
+        username: test_chef.username,
+        meal: 'Meal1',
+        days: 'Monday',
+        mealtime: 'Lunch',
+        max_customers: 3,
+        num_customers: 1,
+        chefinfo_id: test_chef.id,
+        cuisine: 'Indian'
+      )
+
+      # Create a customermeal associated with the customerinfo
+      customermeal = Customermeal.create!(
+        username: customerinfo.username,
+        chefmeal_id: chefmeal.id,
+        customerinfo_id: customerinfo.id
+      )
+
+      get :choose_entry, id: customerinfo.to_param
+
+      expect(assigns(:customerinfo)).to eq(customerinfo)
+      expect(assigns(:days)).to be_a(Array)
+      expect(assigns(:mealtimes)).to be_a(Array)
+      expect(assigns(:chefs)).to be_a(Array)
+      expect(assigns(:meals)).to be_a(Array)
+      expect(assigns(:customermeal_ids)).to be_a(Array)
+
+      # Clean up: Delete the created records
+      Chefinfo.find_by(name: test_chef.name).destroy
+      chefmeal.destroy
+      customermeal.destroy
+    end
   end
 end
