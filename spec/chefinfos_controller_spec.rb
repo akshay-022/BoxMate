@@ -11,8 +11,7 @@ RSpec.describe ChefinfosController, type: :controller do
       address: 'Test Address',
       address_coordinates: '12.345,67.890',
       username: 'test_chef',
-      password: 'password123',
-      subscription: 'basic'
+      password: 'password123'
     }
   }
 
@@ -25,8 +24,7 @@ RSpec.describe ChefinfosController, type: :controller do
       address: 'Test Address',
       address_coordinates: '12.345,67.890',
       username: 'test_chef',
-      password: 'password123',
-      subscription: 'basic'
+      password: 'password123'
     }
   }
 
@@ -48,34 +46,37 @@ RSpec.describe ChefinfosController, type: :controller do
   end
 
   describe 'PUT #update' do
-    context 'with valid params' do
-      it 'updates the requested chefinfo' do
+    context 'with missing fields' do
+      it 'sets a flash notice and redirects to the chefinfo show page' do
         chefinfo = Chefinfo.create!(valid_attributes)
         session[:chef_username] = chefinfo.username
-        put :update, :id => chefinfo.id, :subscription => 'premium'
-        chefinfo.reload
-        expect(chefinfo.subscription).to eq('premium')
+        put :update, id: chefinfo.id, new_entry: { meal: '', max_customers: '' }
+        expect(response).to redirect_to(chefinfo_path(chefinfo))
+        expect(flash[:notice]).to eq('Some fields missing.')
       end
     end
 
-    context 'with valid params for meal update' do
-      it 'updates the requested chefinfo and creates a new Chefmeal' do
+    context 'with valid subscription update' do
+      it 'updates the subscription and redirects to the chefinfo show page' do
         chefinfo = Chefinfo.create!(valid_attributes)
         session[:chef_username] = chefinfo.username
-        expect {
-          put :update, :id => chefinfo.id, :subscription => chefinfo.subscription, :new_entry => { meal: 'New Meal', max_customers: 5 }, :mealtime => 'Lunch', :day => Date.today
-          chefinfo.reload
-        }.to change { Chefmeal.count }.by(1)
+        put :update, id: chefinfo.id, subscription: 'None', new_entry: { meal: 'Maggi', max_customers: 10}, mealtime: 'Lunch', day: Date.today
+        expect(response).to redirect_to(chefinfo_path(chefinfo))
         expect(flash[:notice]).to eq('Your info was successfully updated!')
       end
     end
 
-    context 'with no changes' do
-      it 'displays no changes entered' do
+    context 'with valid meal update and subscription set to Daily' do
+      it 'creates multiple Chefmeals for each day and redirects to the chefinfo show page' do
         chefinfo = Chefinfo.create!(valid_attributes)
         session[:chef_username] = chefinfo.username
-        put :update, :id => chefinfo.id, :subscription => chefinfo.subscription, :new_entry => {meal: ""}
-        expect(flash[:notice]).to eq('No changes entered.')
+        put :update, id: chefinfo.id, subscription: 'Daily', new_entry: { meal: 'New Meal', max_customers: 5 }, mealtime: 'Lunch', day: Date.today
+        expect(response).to redirect_to(chefinfo_path(chefinfo))
+        expect(flash[:notice]).to eq('Your regular meals have been added!')
+        chefinfo.reload
+        expect(Chefmeal.count).to eq(5)
+        expect(chefinfo.chefmeals.pluck(:meal)).to all(eq('New Meal'))
+        expect(chefinfo.chefmeals.pluck(:max_customers)).to all(eq(5))
       end
     end
   end

@@ -76,8 +76,7 @@ class CommonsController < ApplicationController
 
   def destroy
     logged_in = (session[:chef_username].present? || session[:cutomer_username].present?) ? true : false
-    session[:chef_username] = nil
-    session[:customer_username] = nil
+    reset_session
     redirect_to root_path, notice: logged_in ? 'Logged out successfully' : nil
   end
 

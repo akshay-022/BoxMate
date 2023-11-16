@@ -19,12 +19,12 @@ class CustomerinfosController < ApplicationController
 
     params[:sort] ||= session[:sort]
     params[:cuisines] ||= session[:cuisines]
-    @cuisines_to_show = params[:cuisines] ? params[:cuisines].keys  : (session[:cuisines] ? session[:cuisines] : Customermeal.all_cuisines )
+    @cuisines_to_show = params[:cuisines] ? params[:cuisines].keys  : (session[:cuisines] ? session[:cuisines] : Chefinfo.all_cuisines )
     @highlight_column = params[:sort] || session[:sort] || nil
     @chefs_table = Chefmeal.with_cuisines(@cuisines_to_show).order(@highlight_column)
     if @customerinfo
       @days, @mealtimes, @chefs, @meals, @customermeal_ids = Customerinfo.get_customer_meal_details(@customerinfo)
-      @all_cuisines = Customermeal.all_cuisines
+      @all_cuisines = Chefinfo.all_cuisines
     end
   end
 
@@ -51,6 +51,8 @@ class CustomerinfosController < ApplicationController
   def destroy_entry
     @customerinfo = Customerinfo.find params[:id]
     @customermeal = @customerinfo.customermeals.find params[:customermealid]
+    @chefmeal = Chefmeal.find(@customermeal.chefmeal_id)
+    @chefmeal.num_customers -= 1
     @customermeal.delete
     flash[:notice] = "Your entry was successfully deleted!"
     redirect_to customerinfo_path(@customerinfo)

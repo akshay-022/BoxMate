@@ -67,8 +67,7 @@ RSpec.describe CustomerinfosController, type: :controller do
         tags: 'indian',
         description: 'Test Chef description',
         address: 'Test Chef Address',
-        address_coordinates: '12.345,67.890',
-        subscription: 'None'
+        address_coordinates: '12.345,67.890'
       }
     }
 
@@ -117,8 +116,7 @@ RSpec.describe CustomerinfosController, type: :controller do
           tags: 'tag1, tag2',
           description: 'Chef description',
           address: 'Test Chef Address',
-          address_coordinates: '12.345,67.890',
-          subscription: 'None'
+          address_coordinates: '12.345,67.890'
         )
         chefmeal = Chefmeal.create!(
           username: test_chef.username,
@@ -189,8 +187,7 @@ RSpec.describe CustomerinfosController, type: :controller do
         tags: 'tag1, tag2',
         description: 'Test Chef description',
         address: 'Test Chef Address',
-        address_coordinates: '12.345,67.890',
-        subscription: 'None'
+        address_coordinates: '12.345,67.890'
       }
       test_chef = Chefinfo.create!(valid_chef_attributes)
 
