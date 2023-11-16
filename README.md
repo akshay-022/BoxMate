@@ -1,5 +1,7 @@
 Hello and welcome to the second product iteration of BoxMate!!
 
+# PLEASE CHECK THE proj-iter2 BRANCH of the repo, for this iteration.
+
 This is the team behind this product:
 1. Akshay Iyer agi2108
 2. Nagavasavi Jeepalyam nj2506
@@ -60,7 +62,7 @@ Note : "/" is the root directory, which is the sign in page. Going to "/" will a
 
 # Running and testing
 
-Github link : https://github.com/akshay-022/BoxMate
+Github link : https://github.com/akshay-022/BoxMate/tree/proj-iter2
 Heroku link : https://whispering-brook-51278-37b54226ab0d.herokuapp.com/
 
 Steps to run the Rspectests:
