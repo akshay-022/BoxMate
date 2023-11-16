@@ -44,8 +44,8 @@ class ChefinfosController < ApplicationController
   end
 
   def destroy_entry
-    @chefinfo = Chefinfo.find params[:chefinfo_id]
-    @chefmeal = @chefinfo.chefmeals.find params[:id]
+    @chefinfo = Chefinfo.find params[:id]
+    @chefmeal = @chefinfo.chefmeals.find params[:chefmealid]
     @chefmeal.delete
     flash[:notice] = "Your entry was successfully deleted!"
     redirect_to chefinfo_path(@chefinfo)

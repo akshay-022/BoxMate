@@ -2,9 +2,7 @@ Rottenpotatoes::Application.routes.draw do
   resources :chefmeals
   resources :customermeals
   resources :customerinfos
-  resources :chefinfos do
-    resources :chefmeals
-  end
+  resources :chefinfos
 
   # map '/' to be a redirect to '/movies'
   root :to => redirect('/signIn')
@@ -16,7 +14,7 @@ Rottenpotatoes::Application.routes.draw do
   post '/signup/customer/intermediate' => 'commons#signup_customer_intermediate', as: 'signup_customer_intermediate'
   get '/customerinfo' => 'customerinfos#customer_homepage'
   put '/chefinfos/:id/update'=> "chefinfos#update", as: 'update_chefinfo'
-  put '/chefinfos/:chefinfo_id/:id/destroy_entry'=> "chefinfos#destroy_entry", as: 'destroy_chefinfo_entry'
+  put '/chefinfos/:id/destroy_entry'=> "chefinfos#destroy_entry", as: 'destroy_chefinfo_entry'
   get '/chefinfos/:id/choose_entry'=> "chefinfos#choose_entry", as: 'choose_chefinfo_entry'
   put '/customerinfos/:id/update'=> "customerinfos#update", as: 'update_customerinfo'
   put '/customerinfos/:id/destroy_entry'=> "customerinfos#destroy_entry", as: 'destroy_customerinfo_entry'

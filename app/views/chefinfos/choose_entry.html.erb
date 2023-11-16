@@ -30,7 +30,7 @@
           <%= chefmeal.num_customers %>
         </td>
         <td>
-        <%= link_to 'Destroy', destroy_chefinfo_entry_path(@chefinfo, chefmeal), method: :put, 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2'  %>
+        <%= link_to 'Destroy', destroy_chefinfo_entry_path(chefmealid: chefmeal.id), method: :put, 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2'  %>
         </td>
       </tr>
     <% end %>
