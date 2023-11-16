@@ -1,11 +1,13 @@
-<h2>Edit your details chef!</h2>
+<h2>Edit your details customer!</h2>
 
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
       <th>Day</th>
+      <th>Mealtime</th>
       <th>Meal</th>
       <th>Chef</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -15,21 +17,19 @@
           <%= @days[a-1] %>
         </td>
         <td>
+          <%= @mealtimes[a-1] %>
+        </td>
+        <td>
           <%= @meals[a-1] %>
         </td>
         <td>
           <%= @chefs[a-1] %>
+        </td>
+        <td>
+        <%= link_to 'Destroy', destroy_customerinfo_entry_path(customermealid: Customermeal.find(@customermeal_ids[a-1]).id), method: :put, 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2'  %>
         </td>
         
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
-<%= form_tag destroy_customer_entry_path(@customer), :method => :put do %>
-  <%= label :new_entry, :day, 'Enter which day : ', :class => 'col-form-label' %>
-  <%= text_field :new_entry, :day, :class => 'form-control' %>
-  <br/>
-  <%= submit_tag 'Destroy Chef Entry', 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2' %>
-<% end %>

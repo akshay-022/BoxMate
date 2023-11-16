@@ -1,0 +1,39 @@
+<h2>Edit your details chef!</h2>
+
+<table class="table table-striped col-md-12" id="movies">
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th>Mealtime</th>
+      <th>Meal</th>
+      <th>Max Customers</th>
+      <th>Customers</th>
+      <th>Delete Entry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @chefmeals.each do |chefmeal| %>
+      <tr>
+        <td>
+          <%= chefmeal.days %>
+        </td>
+        <td>
+          <%= chefmeal.mealtime %>
+        </td>
+        <td>
+          <%= chefmeal.meal %>
+        </td>
+        <td>
+          <%= chefmeal.max_customers %>
+        </td>
+        <td>
+          <%= chefmeal.num_customers %>
+        </td>
+        <td>
+        <%= link_to 'Destroy', destroy_chefinfo_entry_path(chefmealid: chefmeal.id), method: :put, 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2'  %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

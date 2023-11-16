@@ -1,0 +1,61 @@
+<h2>Edit your details customer!</h2>
+
+<h2>All Chefs</h2>
+
+<%= form_tag edit_customerinfo_path, method: :get, id: 'cuisine_selection_form' do %>
+  <% @all_cuisines.each do |cuisine| %>
+    <div class="form-check  form-check-inline">
+      <%= label_tag "cuisines[#{cuisine}]", cuisine, class: 'form-check-label' %>
+      <%= check_box_tag "cuisines[#{cuisine}]", "1", @cuisines_to_show.include?(cuisine), class: 'form-check-input' %>
+    </div>
+  <% end %>
+  <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
+<% end %>
+
+<table class="table table-striped col-md-12" id="chefs">
+  <thead>
+    <tr>
+      <th class="<%= 'hilite' if @highlight_column == 'username' %>">
+        <%= link_to 'Chefs Name', edit_customerinfo_path(sort: 'username'), id: 'chefname_header' %>
+      </th>
+      <th class="<%= 'hilite' if @highlight_column == 'days' %>">
+        <%= link_to 'date', edit_customerinfo_path(sort: 'days'), id: 'date_header' %>
+      </th>
+      <th class="<%= 'hilite' if @highlight_column == 'mealtime' %>">
+        <%= link_to 'Mealtime', edit_customerinfo_path(sort: 'mealtime'), id: 'meal_time_header' %>
+      </th>
+      <th class="<%= 'hilite' if @highlight_column == 'meal' %>">
+        <%= link_to 'Meal', edit_customerinfo_path(sort: 'meal'), id: 'meal_header' %>
+      </th>
+      <th class="<%= 'hilite' if @highlight_column == 'cuisine' %>">
+        <%= link_to 'Cuisine', edit_customerinfo_path(sort: 'cuisine'), id: 'cuisine_header' %>
+      </th>
+      <th>Add</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @chefs_table.each do |chef| %>
+      <tr>
+        <td>
+          <%= chef.chefinfo[:name] %>
+        </td>
+        <td>
+          <%= chef[:days] %>
+        </td>
+        <td>
+          <%= chef[:mealtime] %>
+        </td>
+        <td>
+          <%= chef[:meal] %>
+        </td>
+        <td>
+          <%= chef[:cuisine] %>
+        </td>
+        <td>
+          <%= link_to 'Add to meals', update_customerinfo_path(chefmealid: chef.id), method: :put, :class => "btn btn-outline-primary col 2" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -1,13 +1,9 @@
-class CreateChefs < ActiveRecord::Migration
+class CreateCustomerinfos < ActiveRecord::Migration
   def up
-    create_table :chefs do |t|
+    create_table :customerinfos do |t|
       t.string :name
       t.string :food_constraint #vegetarian/non-vegetarian/vegan/halal/kosher/eggetarian/jain
       t.string :tags
-      t.string :schedule
-      t.string :days
-      t.string :max_customers
-      t.string :num_customers
       t.text :description
       t.string :address
       t.string :address_coordinates
@@ -19,7 +15,9 @@ class CreateChefs < ActiveRecord::Migration
     end
   end
 
+
+  
   def down
-    drop_table :chefs
+    drop_table :customerinfos
   end
 end

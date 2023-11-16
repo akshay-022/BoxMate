@@ -68,12 +68,9 @@ span.psw {
 </head>
 <body>
 
-<h2>Login Form</h2>
+<h2>Chef Sign up Form</h2>
 
-<%= form_tag signin_path, id: 'user_login' do %>
-  <div class="imgcontainer">
-    <%= image_tag "img_lunchbox.png" %>
-  </div>
+<%= form_tag signup_chef_intermediate_path, id: 'chef_signup' do %>
 
   <div class="container">
     <%= label :common, :username, 'Username', :class => 'col-form-label' %>
@@ -81,23 +78,35 @@ span.psw {
 
     <%= label :common, :password, 'Password', :class => 'col-form-label' %>
     <%= text_field :common, :password, :class => 'form-control' %>
-  </div>     
 
+    <%= label :common, :name, 'Name', :class => 'col-form-label' %>
+    <%= text_field :common, :name, :class => 'form-control' %>
+
+    <%= label :common, :food_constraint, 'Vegan/Vegetarian/Eggetarian/Halal/Kosher/Non-vegetarian', :class => 'col-form-label' %>
+    <%= text_field :common, :food_constraint, :class => 'form-control' %>
+
+    <%= label :common, :tags, 'Tags(Multiple allowed like Indian, Thai etc)', :class => 'col-form-label' %>
+    <%= text_field :common, :tags, :class => 'form-control' %>
+
+    <%= label :common, :description, 'Description', :class => 'col-form-label' %>
+    <%= text_field :common, :description, :class => 'form-control' %>
+
+    <%= label :common, :address, 'Address', :class => 'col-form-label' %>
+    <%= text_field :common, :address, :class => 'form-control' %>
+
+    <%= label :common, :address_coordinates_x, 'Address coordinate x (house latitude, ex:30)', :class => 'col-form-label' %>
+    <%= number_field :common, :address_coordinates_x, :class => 'form-control' %>
+
+    <%= label :common, :address_coordinates_y, 'Address coordinate y (house longitude, ex:30)', :class => 'col-form-label' %>
+    <%= number_field :common, :address_coordinates_y, :class => 'form-control' %>
+
+  </div>    
     
 
   
-  <%= submit_tag 'Login', id: 'login_submit', class: 'btn btn-primary' %>
-    <div class="form-check  form-check-inline">
-    <%= label_tag :remember_me ,"Remember password", class: 'form-check-label' %>
-    <%= check_box_tag :remember_me, "1",  true, class: 'form-check-input' %>
-    </div>
-
+  <%= submit_tag 'Sign Up', id: 'login_submit', class: 'btn btn-primary' %>
+    
   <% end %>
-
-  <div class="row">
-  <%= link_to 'Sign up as chef', signup_chef_path, :class => 'btn btn-primary col-2' %>
-  <%= link_to 'Sign up as customer', signup_customer_path, :class => 'btn btn-primary col-2' %>
-</div>
 
 </body>
 </html>

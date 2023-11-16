@@ -1,40 +1,50 @@
-Given(/^the following customers exist in the database:$/) do |customers_table|
-    customers_table.hashes.each do |customer|
-        Customer.create customer
-    end
+# === FILL IN DATABASE ===
+Given(/^the following chef meals exist in the database:$/) do |chef_meals|
+  chef_meals.hashes.each do |chef_meal|
+    Chefmeal.create chef_meal
+  end
 end
 
-Given(/^I am a customer with username "(.*?)"$/) do |username|
-    @customer = Customer.find_by(username: username)
+Given(/^the following customer meals exist in the database:$/) do |customer_meals|
+  customer_meals.hashes.each do |customer_meal|
+    Customermeal.create customer_meal
+  end
 end
 
-Then(/^I should see the following schedule:$/) do |assignments_table|
-    actual_assignments_table = find('#movies').all('tr').map { |row| row.all('th, td').map(&:text) }
-    assignments_table.diff!(actual_assignments_table)
+# === READ MAIN CUSTOMER PAGE ===
+Given(/^I should see the following assignments:$/) do |scheduled_meals_table|
+  actual_meals_table = find('#movies').all('tr').map { |row| row.all('th, td').map(&:text) }
+  scheduled_meals_table.diff!(actual_meals_table)
 end
 
-Given(/^I have the following schedule:$/) do |scheduled_meals_table|
-    actual_meals_table = find('#movies').all('tr').map { |row| row.all('th, td').map(&:text) }
-    scheduled_meals_table.diff!(actual_meals_table)
-end
-  
-When(/^I remove the day "(.*?)" from the schedule of customer$/) do |day|
-    step "I fill in \"new_entry[day]\" with \"#{day}\""
-    step "I press \"Destroy Chef Entry\""
+# === DELETE MEAL - CUSTOMER PAGE ===
+When(/^I click on the "Destroy" button for the customer meal with id "(\d+)"$/) do |customer_meal_id|
+  destroy_button_selector = "a[data-method='put'][href*='/destroy_entry?customermealid=#{customer_meal_id}']"
+  find(destroy_button_selector).click
 end
 
-Then(/^the chef "(.*?)" should be removed from my schedule$/) do |chef|
-    expect(page).not_to have_content(chef)
+When(/^I accept the alert$/) do
+  if page.driver.browser.respond_to?(:switch_to) && page.driver.browser.switch_to.alert
+    page.driver.browser.switch_to.alert.accept
+  end
 end
 
-When(/^I add the following meals to my schedule:$/) do |meals_table|
-    meals_table.hashes.each do |meal|
-        step "I fill in \"new_entry[day]\" with \"#{meal['Day']}\""
-        step "I fill in \"new_entry[chef]\" with \"#{meal['Chef']}\""
-        step "I press \"Update customer Info\""
-    end
+# === ADD MEAL - CUSTOMER PAGE ===
+When(/^I click the "Add to meals" button for the chef meal with id "(\d+)"$/) do |chefmeal_id|
+  link_selector = "a[data-method='put'][href*='/customerinfos/1/update?chefmealid=#{chefmeal_id}']"
+  find(link_selector).click
 end
 
-Then(/^my meal schedule should be updated$/) do
-    expect(page).to have_content("Your choice was successfully updated!")
+# === LOGOUT ===
+When(/^I click "(.*)" button$/) do |content|
+  click_link content
+end
+
+# === COMMON ===
+Then (/page contains "(.*)"/) do |content|
+  expect(page).to have_content(content)
+end
+Then (/page does not contain "(.*)"/) do |content|
+  # expect(page).to have_content(content)
+  expect(page).to have_no_content(content)
 end

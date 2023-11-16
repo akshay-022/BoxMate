@@ -7,6 +7,7 @@
   <thead>
     <tr>
       <th>Day</th>
+      <th>Mealtime</th>
       <th>Meal</th>
       <th>Chef</th>
     </tr>
@@ -18,6 +19,9 @@
           <%= @days[a-1] %>
         </td>
         <td>
+          <%= @mealtimes[a-1] %>
+        </td>
+        <td>
           <%= @meals[a-1] %>
         </td>
         <td>
@@ -27,5 +31,5 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Change your schedule', edit_customer_path(@customer), :class => 'btn btn-primary col-2' %>
-<%= link_to 'Remove an entry', choose_customer_entry_path(@customer), :class => 'btn btn-primary col-2' %>
+<%= link_to 'Change your schedule', edit_customerinfo_path(@customerinfo), :class => 'btn btn-primary col-2' %>
+<%= link_to 'Remove an entry', choose_customerinfo_entry_path(@customerinfo), :class => 'btn btn-primary col-2' %>
