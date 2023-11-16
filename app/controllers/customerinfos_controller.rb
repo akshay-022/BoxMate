@@ -25,9 +25,6 @@ class CustomerinfosController < ApplicationController
     if @customerinfo
       @days, @mealtimes, @chefs, @meals, @customermeal_ids = Customerinfo.get_customer_meal_details(@customerinfo)
       @all_cuisines = Customermeal.all_cuisines
-    else
-      flash[:notice] = "Customer not found"
-      redirect_to customerinfos_path # Redirect to the index page or handle as appropriate
     end
   end
 
