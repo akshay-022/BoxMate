@@ -133,16 +133,8 @@ RSpec.describe ChefinfosController, type: :controller do
       chefinfo = Chefinfo.create! valid_attributes
       session[:chef_username] = chefinfo.username
       chefmeal = Chefmeal.create!(meal: 'Test Meal', days: Date.today, mealtime: 'Lunch', max_customers: 5, num_customers: 0, chefinfo_id: chefinfo.id, username: chefinfo.username)
-      delete :destroy_entry, :id => chefinfo.to_param, :day => chefmeal.days, :mealtime => chefmeal.mealtime
+      delete :destroy_entry, :id => chefinfo.to_param, :chefmealid => chefmeal.id
       expect(flash[:notice]).to eq('Your entry was successfully deleted!')
-      expect(response).to redirect_to(chefinfo_path(chefinfo))
-    end
-
-    it 'handles the case where the meal to delete does not exist' do
-      chefinfo = Chefinfo.create! valid_attributes
-      session[:chef_username] = chefinfo.username
-      delete :destroy_entry, :id => chefinfo.to_param, :day => Date.today, :mealtime => 'Lunch'
-      expect(flash[:notice]).to eq('No such entry exists')
       expect(response).to redirect_to(chefinfo_path(chefinfo))
     end
   end

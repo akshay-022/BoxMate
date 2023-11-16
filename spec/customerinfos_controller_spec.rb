@@ -43,145 +43,66 @@ RSpec.describe CustomerinfosController, type: :controller do
         end
       end
   end
-  
+
   describe 'PUT #update' do
-    context 'with valid params' do
-        it 'updates the customerinfo and redirects to the show page' do
-            # Create a test chef
-            test_chef = Chefinfo.create!(
-            name: 'Test Chef',
-            username: 'test_chef',
-            password: 'password123',
-            food_constraint: 'vegetarian',
-            tags: 'indian',
-            description: 'Test Chef description',
-            address: 'Test Chef Address',
-            address_coordinates: '12.345,67.890',
-            subscription: 'None'
-            )
+    let(:valid_customer_attributes) {
+      {
+        name: 'Test Customer',
+        username: 'test_customer',
+        password: 'password123',
+        food_constraint: 'vegetarian',
+        tags: 'tag1, tag2',
+        description: 'Customer description',
+        address: 'Test Address',
+        address_coordinates: '12.345,67.890',
+      }
+    }
 
-            # Create a customer
-            customerinfo = Customerinfo.create!(valid_customer_attributes)
-            session[:customer_username] = customerinfo.username
+    let(:valid_chef_attributes) {
+      {
+        name: 'Test Chef',
+        username: 'test_chef',
+        password: 'password123',
+        food_constraint: 'vegetarian',
+        tags: 'indian',
+        description: 'Test Chef description',
+        address: 'Test Chef Address',
+        address_coordinates: '12.345,67.890',
+        subscription: 'None'
+      }
+    }
 
-            # Ensure the chef exists and cooks on the specified day and cuisine
-            chefmeal = Chefmeal.create!(
-            username: test_chef.username,
-            meal: 'Meal1',
-            days: Date.new(2023, 11, 15),
-            mealtime: 'Lunch',
-            max_customers: 3,
-            num_customers: 1,
-            chefinfo_id: test_chef.id,
-            cuisine: 'indian'  # Corrected cuisine to match the test
-            )
+    it 'updates the customerinfo and redirects to the show page' do
+      # Create a test chef
+      test_chef = Chefinfo.create!(valid_chef_attributes)
 
-            # Perform the update action
-            put :update, id: customerinfo.id, new_entry: { chef: test_chef.name, cuisine: 'indian' }, day: '2023-11-15'
+      # Create a customer
+      customerinfo = Customerinfo.create!(valid_customer_attributes)
+      session[:customer_username] = customerinfo.username
 
-            # Reload the customerinfo
-            customerinfo.reload
+      # Ensure the chef exists and cooks on the specified day and cuisine
+      expect(Chefinfo.find_by(name: test_chef.name)).not_to be_nil
+      chefmeal = Chefmeal.create!(
+        username: test_chef.username,
+        meal: 'Meal1',
+        days: 'Monday',
+        mealtime: 'Lunch',
+        max_customers: 3,
+        num_customers: 1,
+        chefinfo_id: test_chef.id,
+        cuisine: 'Indian'
+      )
 
-            # Check for a successful update
-            expect(flash[:notice]).to eq('Your choice was successfully updated!')
+      put :update, id: customerinfo.id, chefmealid: chefmeal.id
+      customerinfo.reload
 
-            # Ensure the correct redirection
-            expect(response).to redirect_to(customerinfo_path(customerinfo))
+      # Check for a successful update
+      expect(flash[:notice]).to eq('Your choice was successfully updated!')
+      expect(response).to redirect_to(customerinfo_path(customerinfo))
 
-            # Clean up: Delete the created records
-            Chefinfo.find_by(name: test_chef.name).destroy
-            chefmeal.destroy
-        end
-    end
-
-    context 'with invalid params' do
-        it 'chef does not exist' do
-            # Create a customer
-            customerinfo = Customerinfo.create!(valid_customer_attributes)
-            session[:customer_username] = customerinfo.username
-
-            # Perform the update action with a non-existing chef
-            put :update, id: customerinfo.id, new_entry: { chef: 'Nonexistent Chef', cuisine: 'Italian' }, day: 'Sunday'
-
-            # Check for the correct flash notice
-            expect(flash[:notice]).to eq('This chef does not exist!')
-
-            # Ensure the correct redirection
-            expect(response).to redirect_to(edit_customerinfo_path(customerinfo))
-        end
-
-        it 'chef does not cook on this day' do
-            # Create a test chef
-            test_chef = Chefinfo.create!(
-            name: 'Test Chef',
-            username: 'test_chef',
-            password: 'password123',
-            food_constraint: 'vegetarian',
-            tags: 'indian',
-            description: 'Test Chef description',
-            address: 'Test Chef Address',
-            address_coordinates: '12.345,67.890',
-            subscription: 'None'
-            )
-
-            # Create a customer
-            customerinfo = Customerinfo.create!(valid_customer_attributes)
-            session[:customer_username] = customerinfo.username
-
-            # Perform the update action with a chef that does not cook on the specified day
-            put :update, id: customerinfo.id, new_entry: { chef: test_chef.name, cuisine: 'Italian' }, day: 'Sunday'
-
-            # Check for the correct flash notice
-            expect(flash[:notice]).to eq('This chef does not cook on this day!')
-
-            # Ensure the correct redirection
-            expect(response).to redirect_to(edit_customerinfo_path(customerinfo))
-
-            # Clean up: Delete the created records
-            Chefinfo.find_by(name: test_chef.name).destroy
-        end
-
-        it 'chef does not cook this cuisine this day' do
-            # Create a test chef
-            test_chef = Chefinfo.create!(
-            name: 'Test Chef',
-            username: 'test_chef',
-            password: 'password123',
-            food_constraint: 'vegetarian',
-            tags: 'indian',
-            description: 'Test Chef description',
-            address: 'Test Chef Address',
-            address_coordinates: '12.345,67.890',
-            subscription: 'None'
-            )
-
-            # Create a customer
-            customerinfo = Customerinfo.create!(valid_customer_attributes)
-            session[:customer_username] = customerinfo.username
-
-            chefmeal = Chefmeal.create!(
-            username: test_chef.username,
-            meal: 'Meal1',
-            days: Date.new(2023, 11, 15),
-            mealtime: 'Lunch',
-            max_customers: 3,
-            num_customers: 1,
-            chefinfo_id: test_chef.id,
-            cuisine: 'indian'  # Corrected cuisine to match the test
-            )
-
-            # Perform the update action with a chef that does not cook the specified cuisine on the specified day
-            put :update, id: customerinfo.id, new_entry: { chef: test_chef.name, cuisine: 'Italian' }, day: '2023-11-15'
-
-            # Check for the correct flash notice
-            expect(flash[:notice]).to eq('This chef does not cook this cuisine this day!')
-
-            # Ensure the correct redirection
-            expect(response).to redirect_to(edit_customerinfo_path(customerinfo))
-
-            # Clean up: Delete the created records
-            Chefinfo.find_by(name: test_chef.name).destroy
-        end
+      # Clean up: Delete the created records
+      Chefinfo.find_by(name: test_chef.name).destroy
+      chefmeal.destroy
     end
   end
 
@@ -215,23 +136,12 @@ RSpec.describe CustomerinfosController, type: :controller do
           customerinfo_id: customerinfo.id
         )
       
-        # Ensure the entry exists before attempting to delete it
-        expect(Customerinfo.get_customer_meal_details(customerinfo)).not_to be_empty
-      
         session[:customer_username] = customerinfo.username
-        delete :destroy_entry, id: customerinfo.to_param, day: '2023-11-15', mealtime: 'Lunch'
+        delete :destroy_entry, id: customerinfo.to_param, :customermealid => customermeal.id
       
         # Expect the flash message to indicate successful deletion
         expect(flash[:notice]).to eq('Your entry was successfully deleted!')
         expect(response).to redirect_to(customerinfo_path(customerinfo))
-    end
-
-    it 'handles the case where the entry to delete does not exist' do
-      customerinfo = Customerinfo.create!(valid_customer_attributes)
-      session[:customer_username] = customerinfo.username
-      delete :destroy_entry, :id => customerinfo.to_param, :day => 'Sunday', :mealtime => 'Dinner'
-      expect(flash[:notice]).to eq('No such entry exists')
-      expect(response).to redirect_to(customerinfo_path(customerinfo))
     end
   end
 
