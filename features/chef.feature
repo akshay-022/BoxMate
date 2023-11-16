@@ -55,5 +55,3 @@ Feature: Chef Management
       | Day	       | Mealtime | Meal          | Max Customers |	Customers |	Details      |
       | 2023-11-15 | Lunch	  | Paneer Chilli |	3	            | 2	        | View Details |
       | 2023-11-16 | Lunch	  | French Toast  |	4	            | 0	        | View Details |
-      | 2023-11-15 | Lunch	  | Paneer Chilli |	3	            | 2	        | View Details |
-      | 2023-11-16 | Lunch	  | French Toast  |	4	            | 0	        | View Details |

@@ -55,8 +55,6 @@ Feature: Customer Management
       | Day        | Mealtime | Meal                 | Chef   |
       | 2023-11-15 | Lunch    | Paneer Butter Masala | Akshay |
       | 2023-11-16 | Lunch    | Egg fry              | Akshay |
-      | 2023-11-15 | Lunch    | Paneer Butter Masala | Akshay |
-      | 2023-11-16 | Lunch    | Egg fry              | Akshay |
 
   Scenario: Customer removes a scheduled meal
     When I click "Remove an entry" button

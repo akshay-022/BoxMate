@@ -45,6 +45,6 @@ Then (/page contains "(.*)"/) do |content|
   expect(page).to have_content(content)
 end
 Then (/page does not contain "(.*)"/) do |content|
-  expect(page).to have_content(content)
-  # expect(page).to have_no_content(content)
+  # expect(page).to have_content(content)
+  expect(page).to have_no_content(content)
 end
