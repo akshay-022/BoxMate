@@ -15,15 +15,18 @@ class ChefinfosController < ApplicationController
   def update
     #add all intermediate steps
     @chefinfo = Chefinfo.find params[:id]
-    if @chefinfo.subscription == params[:subscription] && params[:new_entry][:meal]!=""
+    if params[:new_entry][:meal]=="" || params[:day].blank? || params[:new_entry][:max_customers].blank?
+      flash[:notice] = "Some fields missing."
+    elsif params[:subscription]=="None" && params[:new_entry][:meal]!=""
       flash[:notice] = "Your info was successfully updated!"
       Chefmeal.create!({meal: params[:new_entry][:meal], mealtime: params[:mealtime] ,days: params[:day], max_customers: params[:new_entry][:max_customers], num_customers: 0, chefinfo_id: params[:id], username: @chefinfo.username})
-    elsif @chefinfo.subscription != params[:subscription] 
-      flash[:notice] = "Subscription availability updated!"
-      @chefinfo.update_attribute(:subscription, params[:subscription])
     else
-      flash[:notice] = "No changes entered."
-
+      flash[:notice] = "Your regular meals have been added!"
+      increment_by = (params[:subscription] == "Daily") ? 1 : 7
+      date_here = Date.parse(params[:day])
+      for i in 1..5 do
+        Chefmeal.create!({meal: params[:new_entry][:meal], mealtime: params[:mealtime] ,days: (date_here + increment_by*i).to_s, max_customers: params[:new_entry][:max_customers], num_customers: 0, chefinfo_id: params[:id], username: @chefinfo.username})
+      end
     end
     redirect_to chefinfo_path(@chefinfo)
   end

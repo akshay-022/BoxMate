@@ -9,7 +9,7 @@ class CreateChefinfos < ActiveRecord::Migration
       t.string :address_coordinates
       t.string :username
       t.string :password
-      t.string :subscription
+      #t.string :subscription
       # Add fields that let Rails automatically keep track
       # of when movies are added or modified:
       t.timestamps

@@ -40,7 +40,7 @@ Iter 2 added features :
 1. We have added sign up pages
 2. We have added log out buttons
 3. We are now checking all number field entries and ensuring a number is entered. (customer entry validation)
-4. No one can access any other url now, unless they enter through the login page.
+4. No one can access any other url now, unless they enter through the login page. (session handling)
 5. We have modified our underlying database, because it had many redundancies and unoptimalities in iter 1. We are now using foreign keys and rails associations.
 6. We have switched the days entry to date formats, and changed the way it is selected (calendar dropdown now). Thus we can make entries for more than a single week now.
 7. We have added multiple meal types for every day, i.e. Breakfast, lunch, snacks and dinner.
