@@ -44,18 +44,11 @@ class ChefinfosController < ApplicationController
   end
 
   def destroy_entry
-    @chefinfo = Chefinfo.find params[:id]
-    @chefmeals = @chefinfo.chefmeals
-    puts params
-    meal_to_delete = @chefmeals.find_by(days: params[:day], mealtime: params[:mealtime])
-    if meal_to_delete.blank?
-      flash[:notice] = "No such entry exists"
-      redirect_to chefinfo_path(@chefinfo)
-    else
-      meal_to_delete.delete
-      flash[:notice] = "Your entry was successfully deleted!"
-      redirect_to chefinfo_path(@chefinfo)
-    end
+    @chefinfo = Chefinfo.find params[:chefinfo_id]
+    @chefmeal = @chefinfo.chefmeals.find params[:id]
+    @chefmeal.delete
+    flash[:notice] = "Your entry was successfully deleted!"
+    redirect_to chefinfo_path(@chefinfo)
   end
 
   def authenticate_chef!

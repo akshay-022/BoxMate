@@ -8,6 +8,7 @@
       <th>Meal</th>
       <th>Max Customers</th>
       <th>Customers</th>
+      <th>Delete Entry</th>
     </tr>
   </thead>
   <tbody>
@@ -28,17 +29,11 @@
         <td>
           <%= chefmeal.num_customers %>
         </td>
+        <td>
+        <%= link_to 'Destroy', destroy_chefinfo_entry_path(@chefinfo, chefmeal), method: :put, 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2'  %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-
-<%= form_tag destroy_chefinfo_entry_path(@chefinfo), :method => :put do %>
-  <%= label :day, :day, 'Enter which day (At least 2 days from now): ', :class => 'col-form-label' %>
-  <%= date_field_tag :day, :day, :class => 'form-control', :id => 'datepicker', min: (Date.today + 2).to_s  %>
-  <%= label_tag :mealtime, 'Select meal:', :class => 'col-form-label' %>
-  <%= select_tag :mealtime, options_for_select(['Breakfast', 'Lunch', 'Snacks', 'Dinner'], :mealtime), :class => 'form-control' %>
-  <br/>
-  <%= submit_tag 'Destroy Chef Entry', 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2' %>
-<% end %>

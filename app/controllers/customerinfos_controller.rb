@@ -4,7 +4,7 @@ class CustomerinfosController < ApplicationController
   def show
     id = params[:id] # retrieve customer ID from URI route
     @customerinfo = Customerinfo.find(id) # look up customer by unique ID
-    @days, @mealtimes, @chefs, @meals = Customerinfo.get_customer_meal_details(@customerinfo)
+    @days, @mealtimes, @chefs, @meals, @customermeal_ids = Customerinfo.get_customer_meal_details(@customerinfo)
     #will render app/views/customers/show.<extension> by default
   end
 
@@ -23,7 +23,7 @@ class CustomerinfosController < ApplicationController
     @highlight_column = params[:sort] || session[:sort] || nil
     @chefs_table = Chefmeal.with_cuisines(@cuisines_to_show).order(@highlight_column)
     if @customerinfo
-      @days, @mealtimes, @chefs, @meals = Customerinfo.get_customer_meal_details(@customerinfo)
+      @days, @mealtimes, @chefs, @meals, @customermeal_ids = Customerinfo.get_customer_meal_details(@customerinfo)
       @all_cuisines = Customermeal.all_cuisines
     else
       flash[:notice] = "Customer not found"
@@ -35,46 +35,28 @@ class CustomerinfosController < ApplicationController
     #add all intermediate steps
     @chef_meal_exist = false
     @customerinfo = Customerinfo.find params[:id]
-    @days, @mealtimes, @chefs, @meals = Customerinfo.get_customer_meal_details(@customerinfo)
-    @chefinfo = Chefinfo.find_by(name: params[:new_entry][:chef])
-    if @chefinfo.blank?
-      flash[:notice] = "This chef does not exist!"
-    elsif @chefinfo.chefmeals.find_by(days: params[:day]).blank?
-      flash[:notice] = "This chef does not cook on this day!"
-    elsif @chefinfo.chefmeals.find_by(days: params[:day], cuisine: params[:new_entry][:cuisine]).blank?
-      flash[:notice] = "This chef does not cook this cuisine this day!"
-    else
-      chef_name = params[:new_entry][:chef]
-      day_needed = params[:day]
-      customer = {:customerinfo_id => @customerinfo.id, :chefmeal_id => @chefinfo.chefmeals.find_by(days: params[:day]).id ,:username => @customerinfo.username}
-      Customermeal.create!(customer)
-      Chefmeal.update_num_customers(params[:new_entry][:chef], params[:day], 1) #1 to add an entry, -1 to delete an entry
-      flash[:notice] = "Your choice was successfully updated!"
-      @chef_meal_exist = true
-    end
+    @days, @mealtimes, @chefs, @meals, @customermeal_ids = Customerinfo.get_customer_meal_details(@customerinfo)
+    chefmeal_to_add = Chefmeal.find params[:chefmealid]
+    customer = {:customerinfo_id => @customerinfo.id, :chefmeal_id => chefmeal_to_add.id ,:username => @customerinfo.username}
+    Customermeal.create!(customer)
+    Chefmeal.update_num_customers(chefmeal_to_add.chefinfo.name, chefmeal_to_add.days, 1) #1 to add an entry, -1 to delete an entry
+    flash[:notice] = "Your choice was successfully updated!"
+    @chef_meal_exist = true
     @chef_meal_exist ? redirect_to(customerinfo_path(@customerinfo)) : redirect_to(edit_customerinfo_path)
   end
 
   def choose_entry
     id = params[:id] # retrieve customer ID from URI route
     @customerinfo = Customerinfo.find(id) # look up movie by unique ID
-    @days, @mealtimes, @chefs, @meals = Customerinfo.get_customer_meal_details(@customerinfo)
+    @days, @mealtimes, @chefs, @meals, @customermeal_ids = Customerinfo.get_customer_meal_details(@customerinfo)
   end
 
   def destroy_entry
     @customerinfo = Customerinfo.find params[:id]
-    @days, @mealtimes, @chefs, @meals = Customerinfo.get_customer_meal_details(@customerinfo)
-    day_and_meal = @days.zip(@mealtimes)
-    our_index = day_and_meal.find_index([params[:day], params[:mealtime]])
-    if our_index.blank?
-      flash[:notice] = "No such entry exists"
-      redirect_to customerinfo_path(@customerinfo)
-    else
-      Chefmeal.update_num_customers(@chefs[our_index], params[:day], -1) #1 to add an entry, -1 to delete an entry
-      @customerinfo.customermeals[our_index].delete
-      flash[:notice] = "Your entry was successfully deleted!"
-      redirect_to customerinfo_path(@customerinfo)
-    end
+    @customermeal = @customerinfo.customermeals.find params[:customermealid]
+    @customermeal.delete
+    flash[:notice] = "Your entry was successfully deleted!"
+    redirect_to customerinfo_path(@customerinfo)
   end
 
   def authenticate_customer!

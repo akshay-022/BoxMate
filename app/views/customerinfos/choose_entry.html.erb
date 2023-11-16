@@ -1,4 +1,4 @@
-<h2>Edit your details chef!</h2>
+<h2>Edit your details customer!</h2>
 
 <table class="table table-striped col-md-12" id="movies">
   <thead>
@@ -7,6 +7,7 @@
       <th>Mealtime</th>
       <th>Meal</th>
       <th>Chef</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -24,18 +25,11 @@
         <td>
           <%= @chefs[a-1] %>
         </td>
+        <td>
+        <%= link_to 'Destroy', destroy_customerinfo_entry_path(customermealid: Customermeal.find(@customermeal_ids[a-1]).id), method: :put, 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2'  %>
+        </td>
         
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
-<%= form_tag destroy_customerinfo_entry_path(@customerinfo), :method => :put do %>
-  <%= label :day, :day, 'Enter which day (At least 2 days from now): ', :class => 'col-form-label' %>
-  <%= date_field_tag :day, :day, :class => 'form-control', :id => 'datepicker', min: (Date.today + 2).to_s  %>
-  <%= label_tag :mealtime, 'Select meal:', :class => 'col-form-label' %>
-  <%= select_tag :mealtime, options_for_select(['Breakfast', 'Lunch', 'Snacks', 'Dinner'], :mealtime), :class => 'form-control' %>
-  <br/>
-  <%= submit_tag 'Destroy Chef Entry', 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2' %>
-<% end %>
