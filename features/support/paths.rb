@@ -1,7 +1,6 @@
 # TL;DR: YOU SHOULD DELETE THIS FILE
 #
 # This file is used by web_steps.rb, which you should also delete
-#
 # You have been warned
 module NavigationHelpers
   # Maps a name to a path. Used by the
@@ -13,32 +12,46 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    # when /^the edit page$/ then '/chefs/1/edit'
+    # === CUSTOMER ===
+    # CUSTOMER MAIN PAGE
+    when /^(.*)'s customer main page$/i
+      customerinfo_path(Customerinfo.find_by(name: $1))
 
-    when /^(.*)'s edit page$/i
-      edit_chef_path(Chef.find_by(name: $1))
+    # CUSTOMER DELETE MEAL PAGE
+    when /^(.*)'s customer delete meal page$/i
+      choose_customerinfo_entry_path(Customerinfo.find_by(name: $1))
+
+    # CUSTOMER EDIT MEAL PAGE
+    when /^(.*)'s customer edit meal page$/i
+      edit_customerinfo_path(Customerinfo.find_by(name: $1))
 
 
-    when /^(.*)'s chef page$/i
-      chef_path(Chef.find_by(name: $1))
+    # === CHEF ===
+    # CHEF MAIN PAGE
+    when /^(.*)'s chef main page$/i
+      chefinfo_path(Chefinfo.find_by(name: $1))
 
-    when /^(.*)'s delete page$/i
-      choose_entry_path(Chef.find_by(name: $1))
+    # CHEF DELETE MEAL PAGE
+    when /^(.*)'s chef delete meal page$/i
+      choose_chefinfo_entry_path(Chefinfo.find_by(name: $1))
 
-    when /^(.*)'s customer page$/i
-      customer_path(Customer.find_by(name: $1))
+    # CHEF EDIT MEAL PAGE
+    when /^(.*)'s chef edit meal page$/i
+      edit_chefinfo_path(Chefinfo.find_by(name: $1))
 
-    when /^(.*)'s delete customer page$/i
-      choose_customer_entry_path(Customer.find_by(name: $1))
+    
+    # === AUTHENTICATION ===
+    # SIGNUP - CHEF
+    when /^chef signup page/i
+      signup_chef_path
 
-    when /^(.*)'s create customer page$/i
-      edit_customer_path(Customer.find_by(name: $1))
-      
-    # Add more mappings here.
-    # Here is an example that pulls values out of the Regexp:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
+    # SIGNUP - CUSTOMER
+    when /^customer signup page$/i
+      signup_customer_path
+
+    # LOGIN
+    when /^login page$/i
+      commons_path
 
     else
       begin
