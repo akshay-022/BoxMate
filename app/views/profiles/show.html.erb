@@ -12,7 +12,10 @@
     <li><strong>Address Coordinates:</strong> <%= @chef.address_coordinates %></li>
   </ul>
 </div>
-
+<% if @customer_user %>
+  <%= link_to 'Subscribe',subscribe_path(chefname: @chef,customername: @customer_user) %>
+<% end %>
+<div></div>
 <% if @customer_user %>
   <%= link_to 'Back', customerinfo_path(@customer_user) %>
 <% else %>

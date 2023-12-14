@@ -10,6 +10,7 @@ class Chefmeal < ActiveRecord::Base
         chef_meal.num_customers = (chef_meal.num_customers.to_i + 1)
         chef_meal.save
       end
+      return chef_meal.num_customers
     end
 
     def self.get_customers_per_chefmeal_via_username(chefmeal)
