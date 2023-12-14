@@ -8,12 +8,12 @@
 
 require 'date'
 
-chefmeals = [{:username => "aksh123", :meal => "Paneer Butter Masala", :days => Date.new(2023, 11, 15), :mealtime => "Lunch" ,:max_customers => 3 ,:num_customers => 2, :chefinfo_id => 1, :cuisine => 'indian'},
-		{:username => "aksh123", :meal => "Egg fry", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" ,:max_customers => 4 ,:num_customers => 2, :chefinfo_id => 1, :cuisine => 'chinese'},
-		{:username => "vasavi123", :meal => "Paneer Chilli", :days => Date.new(2023, 11, 15) , :mealtime => "Lunch" , :max_customers => 3 ,:num_customers => 2, :chefinfo_id => 2, :cuisine => 'vietnamese'},
-		{:username => "vasavi123", :meal => "French Toast", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 2, :cuisine => 'jain'},
-		{:username => "maya123", :meal => "Noodles", :days => Date.new(2023, 11, 15) , :mealtime => "Lunch" , :max_customers => 3 ,:num_customers => 0, :chefinfo_id => 3, :cuisine => 'gluten-free'},
-		{:username => "maya123", :meal => "Manchurian", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 3, :cuisine => 'chinese'},
+chefmeals = [{:username => "aksh123", :meal => "Paneer Butter Masala", :days => Date.new(2023, 11, 15), :mealtime => "Lunch" ,:max_customers => 3 ,:num_customers => 1, :chefinfo_id => 1, :cuisine => 'indian'},
+		{:username => "aksh123", :meal => "Egg fry", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" ,:max_customers => 4 ,:num_customers => 1, :chefinfo_id => 1, :cuisine => 'chinese'},
+		{:username => "vasavi123", :meal => "Paneer Chilli", :days => Date.new(2023, 11, 15) , :mealtime => "Lunch" , :max_customers => 3 ,:num_customers => 1, :chefinfo_id => 2, :cuisine => 'vietnamese'},
+		{:username => "vasavi123", :meal => "French Toast", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" , :max_customers => 4 ,:num_customers => 1, :chefinfo_id => 2, :cuisine => 'jain'},
+		{:username => "maya123", :meal => "Noodles", :days => Date.new(2023, 11, 15) , :mealtime => "Lunch" , :max_customers => 3 ,:num_customers => 1, :chefinfo_id => 3, :cuisine => 'gluten-free'},
+		{:username => "maya123", :meal => "Manchurian", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" , :max_customers => 4 ,:num_customers => 1, :chefinfo_id => 3, :cuisine => 'chinese'},
 		{:username => "tanisha123", :meal => "Pho", :days => Date.new(2023, 11, 15) , :mealtime => "Lunch" , :max_customers => 3 ,:num_customers => 0, :chefinfo_id => 4, :cuisine => 'indian'},
 		{:username => "tanisha123", :meal => "Pho", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 4, :cuisine => 'jain'}
   	 ]

@@ -36,7 +36,8 @@ class CustomerinfosController < ApplicationController
     chefmeal_to_add = Chefmeal.find params[:chefmealid]
     customer = {:customerinfo_id => @customerinfo.id, :chefmeal_id => chefmeal_to_add.id ,:username => @customerinfo.username}
     Customermeal.create!(customer)
-    Chefmeal.update_num_customers(chefmeal_to_add.chefinfo.name, chefmeal_to_add.days, 1) #1 to add an entry, -1 to delete an entry
+    chefmeal_to_add.num_customers += 1 #1 to add an entry, -1 to delete an entry
+    chefmeal_to_add.save
     flash[:notice] = "Your choice was successfully updated!"
     @chef_meal_exist = true
     @chef_meal_exist ? redirect_to(customerinfo_path(@customerinfo)) : redirect_to(edit_customerinfo_path)
@@ -53,7 +54,8 @@ class CustomerinfosController < ApplicationController
     @customermeal = @customerinfo.customermeals.find params[:customermealid]
     @chefmeal = Chefmeal.find(@customermeal.chefmeal_id)
     @chefmeal.num_customers -= 1
-    @customermeal.delete
+    @chefmeal.save
+    @customermeal.destroy
     flash[:notice] = "Your entry was successfully deleted!"
     redirect_to customerinfo_path(@customerinfo)
   end
