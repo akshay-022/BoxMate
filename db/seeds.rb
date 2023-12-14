@@ -18,12 +18,12 @@ chefmeals = [{:username => "aksh123", :meal => "Paneer Butter Masala", :days => 
 		{:username => "tanisha123", :meal => "Pho", :days => Date.new(2023, 11, 16) , :mealtime => "Lunch" , :max_customers => 4 ,:num_customers => 0, :chefinfo_id => 4, :cuisine => 'jain'}
   	 ]
 
-customermeals = [{:username => "omkar123", :chefmeal_id => 1, :customerinfo_id => 1},
-		{:username => "omkar123", :chefmeal_id => 2, :customerinfo_id => 1},
-		{:username => "akshat123",:chefmeal_id =>3, :customerinfo_id => 2},
-		{:username => "akshat123",:chefmeal_id =>4, :customerinfo_id => 2},
-		{:username => "abhinav123",:chefmeal_id => 5, :customerinfo_id => 3},
-		{:username => "abhinav123",:chefmeal_id => 6, :customerinfo_id => 3}
+customermeals = [{:username => "omkar123", :chefmeal_id => 1, :customerinfo_id => 1, :num_meals => 1},
+		{:username => "omkar123", :chefmeal_id => 2, :customerinfo_id => 1, :num_meals => 1},
+		{:username => "akshat123",:chefmeal_id =>3, :customerinfo_id => 2, :num_meals => 1},
+		{:username => "akshat123",:chefmeal_id =>4, :customerinfo_id => 2, :num_meals => 1},
+		{:username => "abhinav123",:chefmeal_id => 5, :customerinfo_id => 3, :num_meals => 1},
+		{:username => "abhinav123",:chefmeal_id => 6, :customerinfo_id => 3, :num_meals => 1}
 	]
 
 chefinfos = [{:name => 'Akshay', :username => "aksh123", :password => "password123",:food_constraint => 'vegetarian', :tags => 'indian,gluten-free', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"},
