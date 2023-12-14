@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+
+<div>
+  <h2>Chef Information</h2>
+  <ul>
+    <li><strong>Name:</strong> <%= @chef.name %></li>
+    <li><strong>Food Constraint:</strong> <%= @chef.food_constraint %></li>
+    <li><strong>Tags:</strong> <%= @chef.tags %></li>
+    <li><strong>Description:</strong> <%= @chef.description %></li>
+    <li><strong>Address:</strong> <%= @chef.address %></li>
+    <li><strong>Address Coordinates:</strong> <%= @chef.address_coordinates %></li>
+  </ul>
+</div>
+
+<% if @customer_user %>
+  <%= link_to 'Back', customerinfo_path(@customer_user) %>
+<% else %>
+  <%= link_to 'Back', chefinfo_path(@chef_user) %>
+<% end %>

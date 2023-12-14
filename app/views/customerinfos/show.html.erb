@@ -25,7 +25,7 @@
           <%= @meals[a-1] %>
         </td>
         <td>
-          <%= @chefs[a-1] %>
+          <%= link_to @chefs[a-1].name, profile_path(id: @chefs[a-1].id) %>
         </td>
       </tr>
     <% end %>

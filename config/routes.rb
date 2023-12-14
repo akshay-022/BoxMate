@@ -1,8 +1,10 @@
 Rottenpotatoes::Application.routes.draw do
+  resources :profiles
   resources :chefmeals
   resources :customermeals
   resources :customerinfos
   resources :chefinfos
+  resources :profiles
 
   # map '/' to be a redirect to '/movies'
   root :to => redirect('/signIn')

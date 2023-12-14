@@ -13,7 +13,7 @@ class Customerinfo < ActiveRecord::Base
           if customer.chefmeal.blank?
           else
             @days.append(customer.chefmeal.days.to_s)
-            @chefs.append(customer.chefmeal.chefinfo.name)
+            @chefs.append(customer.chefmeal.chefinfo)
             @meals.append(customer.chefmeal.meal)
             @mealtimes.append(customer.chefmeal.mealtime)
             @customermeal_ids.append(customer.id)
