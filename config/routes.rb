@@ -22,6 +22,7 @@ Rottenpotatoes::Application.routes.draw do
   put '/customerinfos/:id/destroy_entry'=> "customerinfos#destroy_entry", as: 'destroy_customerinfo_entry'
   get '/customerinfos/:id/choose_entry'=> "customerinfos#choose_entry", as: 'choose_customerinfo_entry'
   get '/chefinfos/:id/see_meal'=> "chefinfos#see_meal", as: 'see_meal'
+  get '/customerinfo/:id/subscribe'=> "customerinfos#subscribe", as: 'subscribe'
   delete '/logout' => 'commons#destroy', as: 'logout'
   
 end

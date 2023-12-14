@@ -59,7 +59,24 @@ class CustomerinfosController < ApplicationController
     flash[:notice] = "Your entry was successfully deleted!"
     redirect_to customerinfo_path(@customerinfo)
   end
-
+  def subscribe
+    chef_id= params[:chefname]
+    customer_id= params[:customername]
+    customer = Customerinfo.find params[:customername]
+    chef = Chefinfo.find params[:chefname]
+    @chef_meal =  Chefmeal.where(:chefinfo_id => chef_id)
+    @customer_meals_existent = Customermeal.where(:customerinfo_id => customer_id)
+    @chef_meals_to_add = []
+    @chef_meal.each do |meal|
+      matches = @customer_meals_existent.find_by(chefmeal_id: meal.id)
+      if !matches && meal.max_customers > meal.num_customers
+        Customermeal.create!(username: customer.username, chefmeal_id: meal.id, customerinfo_id: customer_id)
+        meal.num_customers = Chefmeal.update_num_customers(chef.name, meal.days, 1)
+      end
+    end
+    flash[:notice] =  "Subscribed!"
+    redirect_to customerinfo_path(customer)
+  end
   def authenticate_customer!
     @customerinfo = Customerinfo.find_by(id: params[:id])
     
