@@ -9,6 +9,7 @@ class Customerinfo < ActiveRecord::Base
         @meals = []
         @mealtimes = []
         @customermeal_ids = []
+        @num_meals = []
         @customers.each do |customer|
           if customer.chefmeal.blank?
           else
@@ -17,8 +18,9 @@ class Customerinfo < ActiveRecord::Base
             @meals.append(customer.chefmeal.meal)
             @mealtimes.append(customer.chefmeal.mealtime)
             @customermeal_ids.append(customer.id)
+            @num_meals.append(customer.num_meals)
           end
         end
-        return @days, @mealtimes, @chefs, @meals, @customermeal_ids
+        return @days, @mealtimes, @chefs, @meals, @customermeal_ids, @num_meals
       end
 end

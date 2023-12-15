@@ -7,6 +7,7 @@
       <th>Mealtime</th>
       <th>Meal</th>
       <th>Chef</th>
+      <th>No. of meals</th>
       <th>Delete</th>
     </tr>
   </thead>
@@ -26,7 +27,10 @@
           <%= @chefs[a-1] %>
         </td>
         <td>
-        <%= link_to 'Destroy', destroy_customerinfo_entry_path(customermealid: Customermeal.find(@customermeal_ids[a-1]).id), method: :put, 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2'  %>
+          <%= @num_meals[a-1] %>
+        </td>
+        <td>
+        <%= link_to 'Destroy one meal', destroy_customerinfo_entry_path(customermealid: Customermeal.find(@customermeal_ids[a-1]).id), method: :put, 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col 2'  %>
         </td>
         
       </tr>

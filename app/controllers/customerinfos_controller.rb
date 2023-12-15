@@ -4,7 +4,8 @@ class CustomerinfosController < ApplicationController
   def show
     id = params[:id] # retrieve customer ID from URI route
     @customerinfo = Customerinfo.find(id) # look up customer by unique ID
-    @days, @mealtimes, @chefs, @meals, @customermeal_ids = Customerinfo.get_customer_meal_details(@customerinfo)
+    @days, @mealtimes, @chefs, @meals, @customermeal_ids, @num_meals = Customerinfo.get_customer_meal_details(@customerinfo)
+    
     #will render app/views/customers/show.<extension> by default
   end
 
@@ -23,7 +24,7 @@ class CustomerinfosController < ApplicationController
     @highlight_column = params[:sort] || session[:sort] || nil
     @chefs_table = Chefmeal.with_cuisines(@cuisines_to_show).order(@highlight_column)
     if @customerinfo
-      @days, @mealtimes, @chefs, @meals, @customermeal_ids = Customerinfo.get_customer_meal_details(@customerinfo)
+      @days, @mealtimes, @chefs, @meals, @customermeal_ids, @num_meals = Customerinfo.get_customer_meal_details(@customerinfo)
       @all_cuisines = Chefinfo.all_cuisines
     end
   end
@@ -32,10 +33,26 @@ class CustomerinfosController < ApplicationController
     #add all intermediate steps
     @chef_meal_exist = false
     @customerinfo = Customerinfo.find params[:id]
-    @days, @mealtimes, @chefs, @meals, @customermeal_ids = Customerinfo.get_customer_meal_details(@customerinfo)
+    @days, @mealtimes, @chefs, @meals, @customermeal_ids, @num_meals = Customerinfo.get_customer_meal_details(@customerinfo)
     chefmeal_to_add = Chefmeal.find params[:chefmealid]
-    customer = {:customerinfo_id => @customerinfo.id, :chefmeal_id => chefmeal_to_add.id ,:username => @customerinfo.username}
-    Customermeal.create!(customer)
+    existing_customermeal = Customermeal.find_by(
+      customerinfo_id: @customerinfo.id,
+      chefmeal_id: chefmeal_to_add.id,
+      username: @customerinfo.username
+    )
+    if existing_customermeal
+      # If an existing entry is found, increment num_meals by 1
+      existing_customermeal.increment!(:num_meals)
+    else
+      # If no existing entry is found, create a new entry
+      customermeal = Customermeal.new(
+        customerinfo_id: @customerinfo.id,
+        chefmeal_id: chefmeal_to_add.id,
+        username: @customerinfo.username,
+        num_meals: 1 # Set initial value to 1
+      )
+      customermeal.save
+    end
     chefmeal_to_add.num_customers += 1 #1 to add an entry, -1 to delete an entry
     chefmeal_to_add.save
     flash[:notice] = "Your choice was successfully updated!"
@@ -46,7 +63,7 @@ class CustomerinfosController < ApplicationController
   def choose_entry
     id = params[:id] # retrieve customer ID from URI route
     @customerinfo = Customerinfo.find(id) # look up movie by unique ID
-    @days, @mealtimes, @chefs, @meals, @customermeal_ids = Customerinfo.get_customer_meal_details(@customerinfo)
+    @days, @mealtimes, @chefs, @meals, @customermeal_ids, @num_meals = Customerinfo.get_customer_meal_details(@customerinfo)
   end
 
   def destroy_entry
@@ -54,8 +71,18 @@ class CustomerinfosController < ApplicationController
     @customermeal = @customerinfo.customermeals.find params[:customermealid]
     @chefmeal = Chefmeal.find(@customermeal.chefmeal_id)
     @chefmeal.num_customers -= 1
-    @chefmeal.save
-    @customermeal.destroy
+    if @customermeal.num_meals == 1
+      # If num_meals is 1, delete the entry
+      @chefmeal.num_customers -= 1
+      @chefmeal.save
+      @customermeal.destroy
+      flash[:notice] = "Your entry was successfully deleted!"
+    else
+      # If num_meals is greater than 1, decrement num_meals
+      @customermeal.num_meals -= 1
+      @customermeal.save
+      flash[:notice] = "Your entry was successfully deleted!"
+    end
     flash[:notice] = "Your entry was successfully deleted!"
     redirect_to customerinfo_path(@customerinfo)
   end

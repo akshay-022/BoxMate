@@ -39,10 +39,10 @@ class ChefinfosController < ApplicationController
   def see_meal
     @id = params[:chefmealid]
     @chefmeal = Chefmeal.find_by(id: @id)
-    @customers = Chefmeal.get_customers_per_chefmeal_via_username(@chefmeal)
+    @customermeals = @chefmeal.customermeals
     @customer_info = []
-    @customers.each do |every_customer|
-      @customer_info.append(Customerinfo.find_by(username: every_customer))
+    @customermeals.each do |every_customer|
+      @customer_info.append(every_customer)
     end
   end
 

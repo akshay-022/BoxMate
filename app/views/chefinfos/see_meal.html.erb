@@ -9,27 +9,31 @@
       <th>Address</th>
       <th>Address Coordinates</th>
       <th>Order Placed</th>
+      <th>No. of meals</th>
     </tr>
     <tbody>
-    <% @customer_info.each do |customer| %>
+    <% @customer_info.each do |customermeal| %>
       <tr>
         <td>
-          <%= customer.name %>
+          <%= customermeal.customerinfo.name %>
         </td>
         <td>
-          <%= customer.username %>
+          <%= customermeal.customerinfo.username %>
         </td>
         <td>
-          <%= customer.food_constraint %>
+          <%= customermeal.customerinfo.food_constraint %>
         </td>
         <td>
-          <%= customer.address %>
+          <%= customermeal.customerinfo.address %>
         </td>
         <td>
-          <%= customer.address_coordinates %>
+          <%= customermeal.customerinfo.address_coordinates %>
         </td>
         <td>
-          <%= customer.created_at %>
+          <%= customermeal.customerinfo.created_at %>
+        </td>
+        <td>
+          <%= customermeal.num_meals %>
         </td>
       </tr>
     <% end %>
