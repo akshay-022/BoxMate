@@ -10,6 +10,7 @@ class ChefinfosController < ApplicationController
 
   def edit
     @chefinfo = Chefinfo.find params[:id]
+    @customer_username = session[:customer_username]
   end
 
   def update

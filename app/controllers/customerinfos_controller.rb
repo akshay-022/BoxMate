@@ -11,6 +11,7 @@ class CustomerinfosController < ApplicationController
 
   def edit
     id = params[:id] # retrieve customer ID from URI route
+    @customer_username = session[:customer_username]
     @customerinfo = Customerinfo.find(id)
     if (params[:cuisines] == nil && params[:sort] == nil) && (session[:cuisines] != nil || session[:sort] != nil)
       redirect_to(edit_customerinfo_path(sort: session[:sort], cuisines: session[:cuisines]))

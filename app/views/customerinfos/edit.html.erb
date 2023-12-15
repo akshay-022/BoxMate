@@ -30,6 +30,9 @@
       <th class="<%= 'hilite' if @highlight_column == 'cuisine' %>">
         <%= link_to 'Cuisine', edit_customerinfo_path(sort: 'cuisine'), id: 'cuisine_header' %>
       </th>
+      <th>
+        Distance
+      </th>
       <th>Add</th>
     </tr>
   </thead>
@@ -37,7 +40,7 @@
     <% @chefs_table.each do |chef| %>
       <tr>
         <td>
-          <%= chef.chefinfo[:name] %>
+          <%= link_to chef.chefinfo.name, profile_path(id: chef.chefinfo.id) %>
         </td>
         <td>
           <%= chef[:days] %>
@@ -50,6 +53,9 @@
         </td>
         <td>
           <%= chef[:cuisine] %>
+        </td>
+        <td>
+          <%= Chefmeal.get_distance(chef.chefinfo[:address_coordinates], @customer_username) %>
         </td>
         <td>
           <%= link_to 'Add 1 meal', update_customerinfo_path(chefmealid: chef.id), method: :put, :class => "btn btn-outline-primary col 2" %>

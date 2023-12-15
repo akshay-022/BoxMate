@@ -25,5 +25,18 @@ class Chefmeal < ActiveRecord::Base
     def self.with_cuisines(cuisines_list)
        where(cuisine: cuisines_list)
     end
+
+
+    def self.get_distance(address_coordinates, customer_username)
+      customer = Customerinfo.find_by(username: customer_username)
+      address_coordinates2 = customer.address_coordinates
+      coord1 = address_coordinates.split(",").map(&:to_f)
+      coord2 = address_coordinates2.split(",").map(&:to_f)
+      # Calculate the squared differences between corresponding coordinates
+      squared_differences = coord1.zip(coord2).map { |a, b| (a - b)**2 }
+      # Calculate the square root of the sum of squared differences
+      distance = Math.sqrt(squared_differences.sum)
+      return distance
+    end
 end
   

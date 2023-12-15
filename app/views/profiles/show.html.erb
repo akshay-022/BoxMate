@@ -15,6 +15,61 @@
 <% if @customer_user %>
   <%= link_to 'Subscribe',subscribe_path(chefname: @chef,customername: @customer_user) %>
 <% end %>
+<h1></h1>
+<h1></h1>
+<h1></h1>
+<h1></h1>
+<h1></h1>
+
+<table class="table table-striped col-md-12" id="chefs">
+  <thead>
+    <tr>
+      <th>
+        Chef Name
+      </th>
+      <th>
+        Date
+      </th>
+      <th>
+        Mealtime
+      </th>
+      <th>
+        Meal
+      </th>
+      <th>
+        Cuisine
+      </th>
+      <th>Add</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @chefmeals.each do |chef| %>
+      <tr>
+        <td>
+          <%= chef.chefinfo[:name] %>
+        </td>
+        <td>
+          <%= chef[:days] %>
+        </td>
+        <td>
+          <%= chef[:mealtime] %>
+        </td>
+        <td>
+          <%= chef[:meal] %>
+        </td>
+        <td>
+          <%= chef[:cuisine] %>
+        </td>
+        <td>
+          <%= link_to 'Add 1 meal', update_customerinfo_path(chefmealid: chef.id), method: :put, :class => "btn btn-outline-primary col 2" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
 <div></div>
 <% if @customer_user %>
   <%= link_to 'Back', customerinfo_path(@customer_user) %>
