@@ -98,11 +98,17 @@ class CustomerinfosController < ApplicationController
     @chef_meal.each do |meal|
       matches = @customer_meals_existent.find_by(chefmeal_id: meal.id)
       if !matches && meal.max_customers > meal.num_customers
-        Customermeal.create!(username: customer.username, chefmeal_id: meal.id, customerinfo_id: customer_id)
+        Customermeal.create!(username: customer.username, chefmeal_id: meal.id, customerinfo_id: customer_id, num_meals: 1)
         meal.num_customers = Chefmeal.update_num_customers(chef.name, meal.days, 1)
+        @chef_meals_to_add << meal
       end
     end
-    flash[:notice] =  "Subscribed!"
+    if @chef_meals_to_add.length() > 0 
+      flash[:notice] = "Subscribed!" 
+    else
+      flash[:notice] = "No meals added - chef is at max capacity or you are fully subscribed."
+    end
+    Subscription.create!(customerinfo_id: customer_id, chefinfo_id: chef_id)
     redirect_to customerinfo_path(customer)
   end
   def authenticate_customer!

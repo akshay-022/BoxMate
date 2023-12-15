@@ -5,6 +5,7 @@ class ChefinfosController < ApplicationController
     id = params[:id] # retrieve movie ID from URI route
     @chefinfo = Chefinfo.find(id) # look up movie by unique ID
     @chefmeals = @chefinfo.chefmeals
+    @subscriptions = Subscription.where(chefinfo_id: id)
     #will render app/views/chefs/show.<extension> by default
   end
 
@@ -31,6 +32,7 @@ class ChefinfosController < ApplicationController
   def update
     #add all intermediate steps
     @chefinfo = Chefinfo.find params[:id]
+    @subscriptions = Subscription.where(chefinfo_id: @chefinfo.id)
     if params[:new_entry][:meal]=="" || params[:day].blank? || params[:new_entry][:max_customers].blank?
       flash[:notice] = "Some fields missing."
     elsif params[:subscription]=="None" && params[:new_entry][:meal]!=""
@@ -41,8 +43,18 @@ class ChefinfosController < ApplicationController
       increment_by = (params[:subscription] == "Daily") ? 1 : 7
       date_here = Date.parse(params[:day])
       for i in 1..5 do
-        Chefmeal.create!({meal: params[:new_entry][:meal], mealtime: params[:mealtime] ,days: (date_here + increment_by*i).to_s, max_customers: params[:new_entry][:max_customers], num_customers: 0, chefinfo_id: params[:id], username: @chefinfo.username})
+        total_customers = 0
+        new_meal = Chefmeal.create!({meal: params[:new_entry][:meal], mealtime: params[:mealtime] ,days: (date_here + increment_by*i).to_s, max_customers: params[:new_entry][:max_customers], num_customers: 0, chefinfo_id: params[:id], username: @chefinfo.username})
+        if @subscriptions
+          @subscriptions.each do |subscriber|
+            customer = Customerinfo.find_by(id: subscriber.customerinfo_id)
+            Customermeal.create!(username: customer.username, chefmeal_id: new_meal.id, customerinfo_id: customer.id, num_meals: 1)
+            total_customers += 1
+          end
+          new_meal.update_attribute(:num_customers, total_customers)
+        end
       end
+      
     end
     redirect_to chefinfo_path(@chefinfo)
   end

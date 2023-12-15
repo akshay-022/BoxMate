@@ -38,6 +38,9 @@ customerinfos = [{:name => 'Omkar', :username => "omkar123", :password => "passw
 				{:name => 'Abhinav', :username => "abhinav123", :password => "password123", :food_constraint => 'vegetarian', :tags => 'indian,jain', :description => "One of the authors of this SaaS app", :address => "125 st, New York", :address_coordinates => "30,40"}
 ]
 
+subscriptions = [{:customerinfo_id =>2,:chefinfo_id=>1 },
+]
+
 chefmeals.each do |chef_meal_i|
   Chefmeal.create!(chef_meal_i)
 end
@@ -52,4 +55,8 @@ end
 
 customerinfos.each do |customer_info_i|
 	Customerinfo.create!(customer_info_i)
+end
+
+subscriptions.each do |subs|
+	Subscription.create!(subs)
 end
