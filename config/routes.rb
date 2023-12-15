@@ -3,7 +3,9 @@ Rottenpotatoes::Application.routes.draw do
   resources :chefmeals
   resources :customermeals
   resources :customerinfos
-  resources :chefinfos
+  resources :chefinfos do
+    resources :chef_reviews, only: [:create] 
+  end
   resources :profiles
 
   # map '/' to be a redirect to '/movies'
@@ -23,6 +25,7 @@ Rottenpotatoes::Application.routes.draw do
   get '/customerinfos/:id/choose_entry'=> "customerinfos#choose_entry", as: 'choose_customerinfo_entry'
   get '/chefinfos/:id/see_meal'=> "chefinfos#see_meal", as: 'see_meal'
   get '/customerinfo/:id/subscribe'=> "customerinfos#subscribe", as: 'subscribe'
+  post '/chef/:id/review' => 'chefinfos#create_chef_review', as: 'create_chef_review'
   delete '/logout' => 'commons#destroy', as: 'logout'
   
 end

@@ -12,6 +12,7 @@ class ProfilesController < ApplicationController
     @chef_user = Chefinfo.find_by(username: session[:chef_username])
     @chef =  Chefinfo.find_by(id: params[:id])
     @chefmeals = @chef.chefmeals
+    @chef_reviews = @chef.chef_reviews
   end
 
   # GET /profiles/new

@@ -67,6 +67,39 @@
     <% end %>
   </tbody>
 </table>
+<h2>Average Rating: </h2><%= @chef.chef_reviews.average(:rating).to_f.round(1) %>/5
+<div>
+  <h2>Chef Reviews</h2>
+  <ul>
+    <% @chef.chef_reviews.each do |review| %>
+      <li>
+        <strong>Rating by <%= review.customerinfo.name %>:</strong> <%= review.rating %>/5,      
+      <%= review.content %>
+      </li>
+      <hr> <!-- Add a horizontal line to separate reviews -->
+    <% end %>
+  </ul>
+</div>
+
+<!-- Add ChefReviews form here -->
+<div class="mt-4">
+  <h2>Add a Review</h2>
+  <%= form_for [@chef, @chef_reviews.build], url: create_chef_review_path(id: @chef.id, customerinfo_id: @customer_user.id, chefinfo_id: @chef.id), method: :post do |f| %>
+    <%= f.hidden_field :chefinfo_id, value: @chef.id %>
+    <%= f.hidden_field :customerinfo_id, value: @customer_user.id %>
+    <div class="form-group">
+      <%= f.label :content, class: "form-label" %>
+      <%= f.text_area :content, class: "form-control", rows: 4 %>
+    </div>
+    <div class="form-group">
+      <%= f.label :rating, class: "form-label" %>
+      <%= f.number_field :rating, class: "form-control", min: 1, max: 5 %>
+    </div>
+    <div class="form-group">
+      <%= f.submit 'Submit Review', class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
 
 
 

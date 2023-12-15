@@ -1,6 +1,7 @@
 class Customerinfo < ActiveRecord::Base
 
     has_many :customermeals, :dependent => :destroy
+    has_many :chef_reviews
     
     def self.get_customer_meal_details(customerinfo)
         @customers = customerinfo.customermeals

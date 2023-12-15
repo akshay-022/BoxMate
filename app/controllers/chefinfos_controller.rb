@@ -13,6 +13,21 @@ class ChefinfosController < ApplicationController
     @customer_username = session[:customer_username]
   end
 
+
+  def create_chef_review
+    @chef = Chefinfo.find(params[:id])
+    @chef_review = ChefReview.new(chefinfo: @chef)
+    chef_review_params[:customerinfo_id] = params[:customerinfo_id].to_i
+    @chef_review = ChefReview.new(chef_review_params)
+    if @chef_review.save
+      flash[:notice] = "Review successfully submitted."
+      redirect_to profile_path(id: @chef.id)
+    else
+      flash[:notive] = "Error: Unable to submit the review."
+      redirect_to profile_path(id: @chef.id)
+    end
+  end
+
   def update
     #add all intermediate steps
     @chefinfo = Chefinfo.find params[:id]
@@ -61,5 +76,13 @@ class ChefinfosController < ApplicationController
     unless @chefinfo && session[:chef_username] == @chefinfo.username
       redirect_to root_path, notice: 'You are not authorized to access this page.'
     end
+  end
+
+
+  private
+
+  # Strong parameters for ChefReview
+  def chef_review_params
+    params.require(:chef_review).permit(:content, :rating, :chefinfo_id, :customerinfo_id)
   end
 end
