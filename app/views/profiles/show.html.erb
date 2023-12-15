@@ -82,6 +82,7 @@
 </div>
 
 <!-- Add ChefReviews form here -->
+<% if @customer_user.present? %>
 <div class="mt-4">
   <h2>Add a Review</h2>
   <%= form_for [@chef, @chef_reviews.build], url: create_chef_review_path(id: @chef.id, customerinfo_id: @customer_user.id, chefinfo_id: @chef.id), method: :post do |f| %>
@@ -100,6 +101,7 @@
     </div>
   <% end %>
 </div>
+<% end %>
 
 
 
