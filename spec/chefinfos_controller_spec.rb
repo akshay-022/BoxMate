@@ -221,4 +221,17 @@ RSpec.describe ChefinfosController, type: :controller do
       expect(response).not_to redirect_to(root_path)
     end
   end
+
+  describe '.get_distance' do
+    let(:chef_coordinates) { '12.345,67.890' }
+    let(:customer_coordinates) { '12.350,67.895' }
+
+    it 'calculates distance correctly' do
+      chef = Chefinfo.create!(name: 'Test Chef', address_coordinates: chef_coordinates)
+      customer = Customerinfo.create!(username: 'test_customer', address_coordinates: customer_coordinates)
+      distance = Chefmeal.get_distance(chef_coordinates, customer.username)
+      
+      expect(distance).to be_within(0.01).of(0.006)
+    end
+  end
 end
