@@ -131,7 +131,8 @@ RSpec.describe CustomerinfosController, type: :controller do
         customermeal = Customermeal.create!(
           username: customerinfo.username,
           chefmeal_id: chefmeal.id,
-          customerinfo_id: customerinfo.id
+          customerinfo_id: customerinfo.id,
+          num_meals: 1
         )
       
         session[:customer_username] = customerinfo.username

@@ -121,11 +121,13 @@ RSpec.describe ChefinfosController, type: :controller do
       customer1 = Customerinfo.create!(customer1_attributes)
       customer2 = Customerinfo.create!(customer2_attributes)
       
-      Customermeal.create!(username: customer1.username, chefmeal_id: chefmeal.id, customerinfo_id: customer1.id)
-      Customermeal.create!(username: customer2.username, chefmeal_id: chefmeal.id, customerinfo_id: customer2.id)
+      customermeal1 = Customermeal.create!(username: customer1.username, chefmeal_id: chefmeal.id, customerinfo_id: customer1.id, num_meals: 1)
+      customermeal2 = Customermeal.create!(username: customer2.username, chefmeal_id: chefmeal.id, customerinfo_id: customer2.id, num_meals: 1)
       get :see_meal, :id => chefinfo.id, :chefmealid => chefmeal.to_param
       expect(assigns(:chefmeal)).to eq(chefmeal)
-      expect(assigns(:customer_info)).to contain_exactly(customer1, customer2)
+      customer_info_ids = assigns(:customer_info).map(&:customerinfo_id)
+      expected_customer_info_ids = [customer1.id, customer2.id]
+      expect(customer_info_ids).to contain_exactly(*expected_customer_info_ids)
     end
   end
 
