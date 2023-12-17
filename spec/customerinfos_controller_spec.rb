@@ -72,14 +72,10 @@ RSpec.describe CustomerinfosController, type: :controller do
     }
 
     it 'updates the customerinfo and redirects to the show page' do
-      # Create a test chef
       test_chef = Chefinfo.create!(valid_chef_attributes)
-
-      # Create a customer
       customerinfo = Customerinfo.create!(valid_customer_attributes)
       session[:customer_username] = customerinfo.username
 
-      # Ensure the chef exists and cooks on the specified day and cuisine
       expect(Chefinfo.find_by(name: test_chef.name)).not_to be_nil
       chefmeal = Chefmeal.create!(
         username: test_chef.username,
@@ -95,13 +91,44 @@ RSpec.describe CustomerinfosController, type: :controller do
       put :update, id: customerinfo.id, chefmealid: chefmeal.id
       customerinfo.reload
 
-      # Check for a successful update
       expect(flash[:notice]).to eq('Your choice was successfully updated!')
       expect(response).to redirect_to(customerinfo_path(customerinfo))
 
-      # Clean up: Delete the created records
       Chefinfo.find_by(name: test_chef.name).destroy
       chefmeal.destroy
+    end
+    it 'increments num_meals for existing customermeal' do
+        test_chef = Chefinfo.create!(valid_chef_attributes)
+        customerinfo = Customerinfo.create!(valid_customer_attributes)
+        session[:customer_username] = customerinfo.username
+
+        expect(Chefinfo.find_by(name: test_chef.name)).not_to be_nil
+        chefmeal = Chefmeal.create!(
+          username: test_chef.username,
+          meal: 'Meal1',
+          days: 'Monday',
+          mealtime: 'Lunch',
+          max_customers: 3,
+          num_customers: 1,
+          chefinfo_id: test_chef.id,
+          cuisine: 'Indian'
+        )
+
+        existing_customermeal = Customermeal.create!(
+          username: customerinfo.username,
+          chefmeal_id: chefmeal.id,
+          customerinfo_id: customerinfo.id,
+          num_meals: 1
+        )
+
+        put :update, id: customerinfo.id, chefmealid: chefmeal.id
+        existing_customermeal.reload
+
+        expect(existing_customermeal.num_meals).to eq(2)
+
+        Chefinfo.find_by(name: test_chef.name).destroy
+        chefmeal.destroy
+        existing_customermeal.destroy
     end
   end
 
@@ -138,7 +165,42 @@ RSpec.describe CustomerinfosController, type: :controller do
         session[:customer_username] = customerinfo.username
         delete :destroy_entry, id: customerinfo.to_param, :customermealid => customermeal.id
       
-        # Expect the flash message to indicate successful deletion
+        expect(flash[:notice]).to eq('Your entry was successfully deleted!')
+        expect(response).to redirect_to(customerinfo_path(customerinfo))
+    end
+
+    it 'destroys the requested customermeal and redirects to the customerinfo page' do
+        customerinfo = Customerinfo.create!(valid_customer_attributes)
+        test_chef = Chefinfo.create!(
+          name: 'Test Chef',
+          username: 'test_chef',
+          password: 'password123',
+          food_constraint: 'vegetarian',
+          tags: 'tag1, tag2',
+          description: 'Chef description',
+          address: 'Test Chef Address',
+          address_coordinates: '12.345,67.890'
+        )
+        chefmeal = Chefmeal.create!(
+          username: test_chef.username,
+          meal: 'Meal1',
+          days: Date.new(2023, 11, 15),
+          mealtime: 'Lunch',
+          max_customers: 3,
+          num_customers: 1,
+          chefinfo_id: test_chef.id,
+          cuisine: 'test_cuisine'
+        )
+        customermeal = Customermeal.create!(
+          username: customerinfo.username,
+          chefmeal_id: chefmeal.id,
+          customerinfo_id: customerinfo.id,
+          num_meals: 3
+        )
+      
+        session[:customer_username] = customerinfo.username
+        delete :destroy_entry, id: customerinfo.to_param, :customermealid => customermeal.id
+
         expect(flash[:notice]).to eq('Your entry was successfully deleted!')
         expect(response).to redirect_to(customerinfo_path(customerinfo))
     end
@@ -178,7 +240,6 @@ RSpec.describe CustomerinfosController, type: :controller do
       customerinfo = Customerinfo.create!(valid_customer_attributes)
       session[:customer_username] = customerinfo.username
 
-      # Create a test chef
       valid_chef_attributes = 
       {
         name: 'Test Chef',
@@ -192,7 +253,6 @@ RSpec.describe CustomerinfosController, type: :controller do
       }
       test_chef = Chefinfo.create!(valid_chef_attributes)
 
-      # Ensure the chef exists and cooks on the specified day and cuisine
       chefmeal = Chefmeal.create!(
         username: test_chef.username,
         meal: 'Meal1',
@@ -204,7 +264,6 @@ RSpec.describe CustomerinfosController, type: :controller do
         cuisine: 'Indian'
       )
 
-      # Create a customermeal associated with the customerinfo
       customermeal = Customermeal.create!(
         username: customerinfo.username,
         chefmeal_id: chefmeal.id,
@@ -220,10 +279,69 @@ RSpec.describe CustomerinfosController, type: :controller do
       expect(assigns(:meals)).to be_a(Array)
       expect(assigns(:customermeal_ids)).to be_a(Array)
 
-      # Clean up: Delete the created records
       Chefinfo.find_by(name: test_chef.name).destroy
       chefmeal.destroy
       customermeal.destroy
+    end
+  end
+
+  describe 'GET #subscribe' do
+    valid_chef_attributes = {
+      name: 'Test Chef',
+      username: 'test_chef',
+      password: 'password123',
+      food_constraint: 'vegetarian',
+      tags: 'tag1, tag2',
+      description: 'Chef description',
+      address: 'Test Chef Address',
+      address_coordinates: '12.345,67.890'
+    }
+    it 'subscribes the customer to available chef meals' do
+      test_chef = Chefinfo.create!(valid_chef_attributes)
+      customer = Customerinfo.create!(valid_customer_attributes)
+      chefmeal = Chefmeal.create!(
+        username: test_chef.username,
+        meal: 'Meal1',
+        days: 'Monday',
+        mealtime: 'Lunch',
+        max_customers: 3,
+        num_customers: 1,
+        chefinfo_id: test_chef.id,
+        cuisine: 'Indian'
+      )
+
+      get :subscribe, id: customer.to_param, chefname: test_chef.id, customername: customer.id
+
+      expect(response).to redirect_to(customerinfo_path(customer))
+      expect(flash[:notice]).to eq('Subscribed!')
+
+      Chefinfo.find_by(name: test_chef.name).destroy
+      chefmeal.destroy
+      customer.destroy
+    end
+
+    it 'does not subscribe the customer if chef meals are at max capacity' do
+      test_chef = Chefinfo.create!(valid_chef_attributes)
+      customer = Customerinfo.create!(valid_customer_attributes)
+      chefmeal = Chefmeal.create!(
+        username: test_chef.username,
+        meal: 'Meal1',
+        days: 'Monday',
+        mealtime: 'Lunch',
+        max_customers: 1,
+        num_customers: 1,
+        chefinfo_id: test_chef.id,
+        cuisine: 'Indian'
+      )
+
+      get :subscribe, id: customer.to_param, chefname: test_chef.id, customername: customer.id
+
+      expect(response).to redirect_to(customerinfo_path(customer))
+      expect(flash[:notice]).to eq('No meals added - chef is at max capacity or you are fully subscribed.')
+
+      Chefinfo.find_by(name: test_chef.name).destroy
+      chefmeal.destroy
+      customer.destroy
     end
   end
 end
