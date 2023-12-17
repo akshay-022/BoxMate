@@ -1,2 +1,2 @@
-class Profile < ActiveRecord::Base
-end
+# class Profile < ActiveRecord::Base
+# end

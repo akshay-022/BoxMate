@@ -13,15 +13,6 @@ class Chefmeal < ActiveRecord::Base
       return chef_meal.num_customers
     end
 
-    def self.get_customers_per_chefmeal_via_username(chefmeal)
-      all_customers_per_chef = Customermeal.where(:chefmeal_id => chefmeal.id)
-      all_customers = []
-      all_customers_per_chef.each do |every_customer|
-        all_customers.append(every_customer.username)        
-      end
-      return all_customers
-    end
-
     def self.with_cuisines(cuisines_list)
        where(cuisine: cuisines_list)
     end
