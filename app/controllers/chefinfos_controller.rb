@@ -24,7 +24,7 @@ class ChefinfosController < ApplicationController
       flash[:notice] = "Review successfully submitted."
       redirect_to profile_path(id: @chef.id)
     else
-      flash[:notive] = "Error: Unable to submit the review."
+      flash[:notice] = "Error: Unable to submit the review."
       redirect_to profile_path(id: @chef.id)
     end
   end

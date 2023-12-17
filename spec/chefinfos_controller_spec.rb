@@ -79,6 +79,31 @@ RSpec.describe ChefinfosController, type: :controller do
         expect(chefinfo.chefmeals.pluck(:max_customers)).to all(eq(5))
       end
     end
+
+    context 'with valid parameters' do
+      it 'updates chef meals and subscriptions' do
+        chefinfo = Chefinfo.create!(valid_attributes)
+        session[:chef_username] = chefinfo.username
+        customer = Customerinfo.create!(name: 'Customer', username: 'customer', password: 'password123')
+        subscription = Subscription.create!(chefinfo_id: chefinfo.id, customerinfo_id: customer.id)
+  
+        put :update, id: chefinfo.id, new_entry: { meal: 'New Meal', max_customers: 3 }, day: '2023-12-18', mealtime: 'Lunch', subscription: 'Daily'
+  
+        expect(response).to redirect_to(chefinfo_path(chefinfo.reload))
+        expect(flash[:notice]).to eq('Your regular meals have been added!')
+        
+        expect(Chefmeal.count).to eq(5) 
+        new_meal = Chefmeal.last
+        expect(new_meal.meal).to eq('New Meal')
+        expect(new_meal.num_customers).to eq(1) 
+  
+        expect(Customermeal.count).to eq(5)
+        customer_meal = Customermeal.last
+        expect(customer_meal.chefmeal_id).to eq(new_meal.id)
+        expect(customer_meal.customerinfo_id).to eq(customer.id)
+        expect(customer_meal.num_meals).to eq(1)
+      end
+    end
   end
 
 
@@ -128,6 +153,45 @@ RSpec.describe ChefinfosController, type: :controller do
       customer_info_ids = assigns(:customer_info).map(&:customerinfo_id)
       expected_customer_info_ids = [customer1.id, customer2.id]
       expect(customer_info_ids).to contain_exactly(*expected_customer_info_ids)
+    end
+  end
+
+  describe 'POST #create_chef_review' do
+    let(:chefinfo) { Chefinfo.create!(valid_attributes) }
+    customer_attributes = {
+        name: 'Customer 1',
+        username: 'customer1',
+        password: 'password123',
+        food_constraint: 'vegetarian',
+        tags: 'tag1, tag2',
+        description: 'Customer 1 description',
+        address: 'Customer 1 Address',
+        address_coordinates: '40.7128, -74.0060'
+      }
+    customerinfo = Customerinfo.create!(customer_attributes)
+
+    it 'creates a new ChefReview and redirects to the chef profile page' do
+      post :create_chef_review, id: chefinfo.id, customerinfo_id: customerinfo.id, chef_review: { content: 'Great chef!', rating: 5, chefinfo_id: chefinfo.id, customerinfo_id: customerinfo.id  }
+
+      expect(response).to redirect_to(profile_path(id: chefinfo.id))
+      expect(flash[:notice]).to eq('Review successfully submitted.')
+
+      created_review = ChefReview.last
+      expect(created_review).to be_present
+      expect(created_review.content).to eq('Great chef!')
+      expect(created_review.rating).to eq(5)
+      expect(created_review.chefinfo).to eq(chefinfo)
+      expect(created_review.customerinfo_id).to eq(customerinfo.id)
+    end
+
+    it 'redirects to the chef profile page with an error message on failure' do
+      chef_review = instance_double(ChefReview)
+      allow(ChefReview).to receive(:new).and_return(chef_review)
+      allow(chef_review).to receive(:save).and_return(false)
+      post :create_chef_review, id: chefinfo.id, customerinfo_id: customerinfo.id, chef_review: { content: '', rating: 6 }
+
+      expect(response).to redirect_to(profile_path(id: chefinfo.id))
+      expect(flash[:notice]).to eq('Error: Unable to submit the review.')
     end
   end
 
