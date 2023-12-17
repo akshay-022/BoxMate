@@ -56,11 +56,6 @@ Play around a bit more if you want, maybe try some other chefs and customers and
 11. All redundant entries and deletions are now by buttons in the corresponding rows, and not user entries.
 12. We have added subscriptions functionality now. Chefs can add a meal recurrence, and 5 meals of those intervals will get automatically added. We will integrate this functionality with customer subscriptions in the next iteration.
 
-Note : "/" is the root directory, which is the sign in page. Going to "/" will always redirect you to "/signIn".
-        To logout and login as a different chef/customer, click the logout button in the top right corner and login again differently.
-
-
-
 # Final Submissions added features : 
 1. We have created the complete subscriptions model. Users can now subscribe to chefs, to automatically get added to all their meals. 
    If the chef adds new meals, those meals get automatically added to subscribed customers too.
