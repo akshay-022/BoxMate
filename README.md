@@ -67,8 +67,8 @@ Note : "/" is the root directory, which is the sign in page. Going to "/" will a
 2. We have added reviews to chefs. Customes can now write detailed reviews for chefs and give them a rating from 1-5.
 3. We now have a dedicated Profiles page for every chef. This page has all the chef details and all their meals. You can subscribe to a chef's meals from this page too.
    You can also see the average rating and all past reviews of the chef.
-4. The same customer can add multiple meals on the same day and time by a chef now. All columns now have a number of meals table, which shows how many orders the customer has placed
-   with the chef for a particular meal.
+4. The same customer can add multiple meals on the same day and time by a chef now. 
+   All columns now have a number of meals table, which shows how many orders the customer has placed with the chef for a particular meal.
 5. We now use the address coordinates of chefs and customers to display a distance metric that shows how far the chef is from you.
 6. We added multiple table and column entries into our database, including ones for subscription tracking and reviews.
 
