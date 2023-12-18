@@ -1,6 +1,6 @@
 Hello and welcome to the second product iteration of BoxMate!!
 
-# PLEASE CHECK THE proj-iter2 BRANCH of the repo, for this iteration.
+# PLEASE CHECK THE final-submission BRANCH of the repo!!
 
 This is the team behind this product:
 1. Akshay Iyer agi2108
