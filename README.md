@@ -101,6 +101,12 @@ Steps to run Cucumber Features:
 
 # Test additions for final submission
 
-1.
-2.
-3.
+1. We have updated rspec tests for all the code we added, with a total coverage of 100% now.
+2. Final-iter has 20 scenarios with 192 steps passed
+3. Scenarios added for each of the new feature added:
+   - Subscription Testing: Ensuring that customers can successfully subscribe to a chef.
+   - Customer Review Feature: Verifying the functionality allowing customers to review chefs.
+   - Chef Profile Page: Testing the presence and functionality of individual profile pages for chefs.
+   - Distance Calculation in Schedule: Confirming that customers can view the correct distance information in the schedule table based on the chef's location.
+   - Subscription Database Addition: Ensuring the proper integration of the subscription feature with the database.
+   - Meal Addition Modification: Modifying existing tests to accommodate the scenario where customers can add multiple meals on the same day.
