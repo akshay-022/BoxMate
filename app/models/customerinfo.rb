@@ -1,6 +1,7 @@
 class Customerinfo < ActiveRecord::Base
 
     has_many :customermeals, :dependent => :destroy
+    has_many :chef_reviews
     
     def self.get_customer_meal_details(customerinfo)
         @customers = customerinfo.customermeals
@@ -9,16 +10,18 @@ class Customerinfo < ActiveRecord::Base
         @meals = []
         @mealtimes = []
         @customermeal_ids = []
+        @num_meals = []
         @customers.each do |customer|
           if customer.chefmeal.blank?
           else
             @days.append(customer.chefmeal.days.to_s)
-            @chefs.append(customer.chefmeal.chefinfo.name)
+            @chefs.append(customer.chefmeal.chefinfo)
             @meals.append(customer.chefmeal.meal)
             @mealtimes.append(customer.chefmeal.mealtime)
             @customermeal_ids.append(customer.id)
+            @num_meals.append(customer.num_meals)
           end
         end
-        return @days, @mealtimes, @chefs, @meals, @customermeal_ids
+        return @days, @mealtimes, @chefs, @meals, @customermeal_ids, @num_meals
       end
 end

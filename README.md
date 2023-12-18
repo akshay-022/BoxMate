@@ -1,6 +1,6 @@
 Hello and welcome to the second product iteration of BoxMate!!
 
-# PLEASE CHECK THE proj-iter2 BRANCH of the repo, for this iteration.
+# PLEASE CHECK THE final-submission BRANCH of the repo!!
 
 This is the team behind this product:
 1. Akshay Iyer agi2108
@@ -56,6 +56,18 @@ Play around a bit more if you want, maybe try some other chefs and customers and
 11. All redundant entries and deletions are now by buttons in the corresponding rows, and not user entries.
 12. We have added subscriptions functionality now. Chefs can add a meal recurrence, and 5 meals of those intervals will get automatically added. We will integrate this functionality with customer subscriptions in the next iteration.
 
+# Final Submissions added features : 
+1. We have created the complete subscriptions model. Users can now subscribe to chefs, to automatically get added to all their meals. 
+   If the chef adds new meals, those meals get automatically added to subscribed customers too.
+2. We have added reviews to chefs. Customes can now write detailed reviews for chefs and give them a rating from 1-5.
+3. We now have a dedicated Profiles page for every chef. This page has all the chef details and all their meals. You can subscribe to a chef's meals from this page too.
+   You can also see the average rating and all past reviews of the chef.
+4. The same customer can add multiple meals on the same day and time by a chef now. 
+   All columns now have a number of meals table, which shows how many orders the customer has placed with the chef for a particular meal.
+5. We now use the address coordinates of chefs and customers to display a distance metric that shows how far the chef is from you.
+6. We added multiple table and column entries into our database, including ones for subscription tracking and reviews.
+
+
 Note : "/" is the root directory, which is the sign in page. Going to "/" will always redirect you to "/signIn".
         To logout and login as a different chef/customer, click the logout button in the top right corner and login again differently.
 
@@ -68,6 +80,7 @@ Heroku link : https://whispering-brook-51278-37b54226ab0d.herokuapp.com/
 Steps to run the Rspectests:
 - git clone git@github.com:akshay-022/BoxMate.git
 - cd BoxMate
+- git checkout final-submission
 - bundle install
 - bundle exec rake db:drop
 - bundle exec rake db:create
@@ -82,7 +95,19 @@ Steps to run Cucumber Features:
 - bundle exec rake cucumber
 
 
-# Test additions since iter 1
+# Test additions for iter 2
 
 1. Iter-1 had 6 scenarios. Iter-2 has 15 scenarios.
 2. We have added rspec tests for all the code we added, with a total coverage of 100% now.
+
+# Test additions for final submission
+
+1. We have updated rspec tests for all the code we added, with a total coverage of 100% now.
+2. Final-iter has 20 scenarios with 192 steps passed
+3. Scenarios added for each of the new features added:
+   - Subscription Testing: Ensuring that customers can successfully subscribe to a chef.
+   - Customer Review Feature: Verifying the functionality allowing customers to review chefs.
+   - Chef Profile Page: Testing the presence and functionality of individual profile pages for chefs.
+   - Distance Calculation in Schedule: Confirming that customers can view the correct distance information in the schedule table based on the chef's location.
+   - Subscription Database Addition: Ensuring the proper integration of the subscription feature with the database.
+   - Meal Addition Modification: Modifying existing tests to accommodate the scenario where customers can add multiple meals on the same day.

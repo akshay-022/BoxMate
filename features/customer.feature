@@ -30,14 +30,17 @@ Feature: Customer Management
       | tanisha123| Pho                    | 2023-11-16            | Lunch    | 4             | 0             | 4           | jain         |
 
     Given the following customer meals exist in the database:
-      | username    | chefmeal_id | customerinfo_id |
-      | omkar123    | 1           | 1               |
-      | omkar123    | 2           | 1               |
-      | akshat123   | 3           | 2               |
-      | akshat123   | 4           | 2               |
-      | abhinav123  | 5           | 3               |
-      | abhinav123  | 6           | 3               |
+      | username    | chefmeal_id | customerinfo_id | num_meals |
+      | omkar123    | 1           | 1               | 1         |
+      | omkar123    | 2           | 1               | 1         |
+      | akshat123   | 3           | 2               | 1         |
+      | akshat123   | 4           | 2               | 1         |
+      | abhinav123  | 5           | 3               | 1         |
+      | abhinav123  | 6           | 3               | 1         |
 
+    Given the following subscriptions exist in the database:
+      | customerinfo_id | chefinfo_id |
+      | 2               | 1           |
 
     Given I am on login page
     When I fill in the customer login form with:
@@ -59,7 +62,7 @@ Feature: Customer Management
   Scenario: Customer removes a scheduled meal
     When I click "Remove an entry" button
     Then I am on Omkar's customer delete meal page
-    And I click on the "Destroy" button for the customer meal with id "2"
+    And I click on the "Destroy one meal" button for the customer meal with id "2"
     And I accept the alert
     And page contains "Your entry was successfully deleted!"
     And page does not contain "Egg fry"
@@ -70,6 +73,41 @@ Feature: Customer Management
     And I click the "Add to meals" button for the chef meal with id "5"
     And page contains "Your choice was successfully updated!"
     And page contains "Noodles"
+
+  Scenario: Customer can see the Chef profile
+    When I click on the chef "Akshay"
+    And page contains "Chef Information"
+    And page contains "Name: Akshay"
+    And page contains "Food Constraint: vegetarian"
+    And page contains "Tags: indian,gluten-free"
+    And page contains "Description: One of the authors of this SaaS app"
+    And page contains "Address: 125 st, New York"
+    And page contains "Address Coordinates: 30,40"
+
+  
+  Scenario: Customer can see the distance in Schedule table
+    When I click "Change your schedule" button
+    Then I am on Omkar's customer edit meal page
+    And page contains "Distance"
+
+  Scenario: Customer can subscribe to Cheffs
+    When I click on the chef "Akshay"
+    And page contains "Name: Akshay"
+    And I click the "Subscribe" button
+    And page contains "No meals added - chef is at max capacity or you are fully subscribed."
+
+  Scenario: Customer can review the Chef
+    When I click on the chef "Akshay"
+    And page contains "Chef Reviews"
+    And page contains "Add a Review"
+    And I submit a review with "Good!" content and "5" rating
+    And page contains "Review successfully submitted."
+
+  Scenario: Customer can see the correct distance in table wrt Chef location in schedule
+    When I click "Change your schedule" button
+    Then I am on Omkar's customer edit meal page
+    And page contains "Distance"
+    And page has "0.0" since all coordinates is the same
 
   Scenario: Customer logs out
     When I click "Logout" button

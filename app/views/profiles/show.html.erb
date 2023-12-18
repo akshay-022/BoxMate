@@ -1,0 +1,113 @@
+<p id="notice"><%= notice %></p>
+
+
+<div>
+  <h2>Chef Information</h2>
+  <ul>
+    <li><strong>Name:</strong> <%= @chef.name %></li>
+    <li><strong>Food Constraint:</strong> <%= @chef.food_constraint %></li>
+    <li><strong>Tags:</strong> <%= @chef.tags %></li>
+    <li><strong>Description:</strong> <%= @chef.description %></li>
+    <li><strong>Address:</strong> <%= @chef.address %></li>
+    <li><strong>Address Coordinates:</strong> <%= @chef.address_coordinates %></li>
+  </ul>
+</div>
+<% if @customer_user %>
+  <%= link_to 'Subscribe',subscribe_path(chefname: @chef,customername: @customer_user) %>
+<% end %>
+<h1></h1>
+<h1></h1>
+<h1></h1>
+<h1></h1>
+<h1></h1>
+
+<table class="table table-striped col-md-12" id="chefs">
+  <thead>
+    <tr>
+      <th>
+        Chef Name
+      </th>
+      <th>
+        Date
+      </th>
+      <th>
+        Mealtime
+      </th>
+      <th>
+        Meal
+      </th>
+      <th>
+        Cuisine
+      </th>
+      <th>Add</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @chefmeals.each do |chef| %>
+      <tr>
+        <td>
+          <%= chef.chefinfo[:name] %>
+        </td>
+        <td>
+          <%= chef[:days] %>
+        </td>
+        <td>
+          <%= chef[:mealtime] %>
+        </td>
+        <td>
+          <%= chef[:meal] %>
+        </td>
+        <td>
+          <%= chef[:cuisine] %>
+        </td>
+        <td>
+          <%= link_to 'Add 1 meal', update_customerinfo_path(chefmealid: chef.id), method: :put, :class => "btn btn-outline-primary col 2" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<h2>Average Rating: </h2><%= @chef.chef_reviews.average(:rating).to_f.round(1) %>/5
+<div>
+  <h2>Chef Reviews</h2>
+  <ul>
+    <% @chef.chef_reviews.each do |review| %>
+      <li>
+        <strong>Rating by <%= review.customerinfo.name %>:</strong> <%= review.rating %>/5,      
+      <%= review.content %>
+      </li>
+      <hr> <!-- Add a horizontal line to separate reviews -->
+    <% end %>
+  </ul>
+</div>
+
+<!-- Add ChefReviews form here -->
+<% if @customer_user.present? %>
+<div class="mt-4">
+  <h2>Add a Review</h2>
+  <%= form_for [@chef, @chef_reviews.build], url: create_chef_review_path(id: @chef.id, customerinfo_id: @customer_user.id, chefinfo_id: @chef.id), method: :post do |f| %>
+    <%= f.hidden_field :chefinfo_id, value: @chef.id %>
+    <%= f.hidden_field :customerinfo_id, value: @customer_user.id %>
+    <div class="form-group">
+      <%= f.label :content, class: "form-label" %>
+      <%= f.text_area :content, class: "form-control", rows: 4 %>
+    </div>
+    <div class="form-group">
+      <%= f.label :rating, class: "form-label" %>
+      <%= f.number_field :rating, class: "form-control", min: 1, max: 5 %>
+    </div>
+    <div class="form-group">
+      <%= f.submit 'Submit Review', class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+<% end %>
+
+
+
+<div></div>
+<% if @customer_user %>
+  <%= link_to 'Back', customerinfo_path(@customer_user) %>
+<% else %>
+  <%= link_to 'Back', chefinfo_path(@chef_user) %>
+<% end %>
