@@ -80,6 +80,7 @@ Heroku link : https://whispering-brook-51278-37b54226ab0d.herokuapp.com/
 Steps to run the Rspectests:
 - git clone git@github.com:akshay-022/BoxMate.git
 - cd BoxMate
+- git checkout final-submission
 - bundle install
 - bundle exec rake db:drop
 - bundle exec rake db:create
