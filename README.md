@@ -71,6 +71,17 @@ Play around a bit more if you want, maybe try some other chefs and customers and
 Note : "/" is the root directory, which is the sign in page. Going to "/" will always redirect you to "/signIn".
         To logout and login as a different chef/customer, click the logout button in the top right corner and login again differently.
 
+# Possible steps for final submission
+
+1. First login as a customer- Omkar. username : omkar123, password : password123
+2. Play around with the website. Add the same meal multiple times and see how you see a number beside the meal in the table. 
+3. Go leave a review on Chef Akshay's page. Their name will be hyperlinked in your table. See Akshay's updated page after Omkar submits the review.
+4. Note the distance metric added to help understand who is close enough to collect a meal from.
+4. Subscribe to Akshay.
+5. Login as chef Akshay. username : aksh123, password : password123.
+6. Add a meal by Akshay.
+7. Go back to Omkar and check that it has automatically been added to his schedule too, since he subscribed to Akshay.
+8. Play around with the site in general, check the new and old features.
 
 # Running and testing
 
