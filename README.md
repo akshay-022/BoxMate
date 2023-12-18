@@ -74,7 +74,7 @@ Note : "/" is the root directory, which is the sign in page. Going to "/" will a
 
 # Running and testing
 
-Github link : https://github.com/akshay-022/BoxMate/tree/proj-iter2
+Github link : https://github.com/akshay-022/BoxMate/tree/final-submission
 Heroku link : https://whispering-brook-51278-37b54226ab0d.herokuapp.com/
 
 Steps to run the Rspectests:
